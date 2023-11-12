@@ -49,6 +49,9 @@ ConvertFile()
 	cat $SRC | sed "s/ClassName/$ClassName/g" | \
 				sed "s/CLASSNAME/$CLASSNAME/g" | \
 				sed "s|0000/00/00 00:00:00|$TimeStamp|g" > $DST
+	if [ $? -eq 0 ]; then
+		echo "$DST created"
+	fi
 }
 
 TimeStamp=$(date +"%Y/%m/%d %H:%M:%S")
