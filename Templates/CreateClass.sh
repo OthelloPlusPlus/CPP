@@ -11,12 +11,15 @@ elif [ ! -f "$HPPTemplate" ]; then
 	exit 1
 fi
 
-echo -n "Class Name: "
-read ClassName
-CLASSNAME=$(echo "$ClassName" | tr '[:lower:]' '[:upper:]')
+echo -n "Class Names: "
+read -ra ClassNames
+if [ ${#ClassNames[@]} -eq 0 ]; then
+	echo "No names passed."
+	exit 0
+fi
+
 echo -n "Location: "
 read Location
-
 if [ ! -d "$Location" ]; then
 	echo "Location '$Location' not found, create [y/n]? "
 	read query
@@ -49,5 +52,8 @@ ConvertFile()
 }
 
 TimeStamp=$(date +"%Y/%m/%d %H:%M:%S")
-ConvertFile "$CPPTemplate" "$Location/$ClassName.cpp"
-ConvertFile "$HPPTemplate" "$Location/$ClassName.hpp"
+for ClassName in "${ClassNames[@]}"; do
+	CLASSNAME=$(echo "$ClassName" | tr '[:lower:]' '[:upper:]')
+	ConvertFile "$CPPTemplate" "$Location/$ClassName.cpp"
+	ConvertFile "$HPPTemplate" "$Location/$ClassName.hpp"
+done
