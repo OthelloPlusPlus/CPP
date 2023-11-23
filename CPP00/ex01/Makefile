@@ -2,7 +2,7 @@ NAME =	phonebook
 
 CC =	c++
 CFLAGS +=	-Wall -Wextra -Werror
-CFLAGS +=	-std=c++98
+# CFLAGS +=	-std=c++98
 
 INCL_HDR :=	$(shell find . -type f -name '*.hpp' -exec dirname "{}" \; | \
 					uniq | sed -e 's/^/-I/g')
