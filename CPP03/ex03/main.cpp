@@ -1,0 +1,167 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.cpp                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ohengelm <ohengelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/03/22 16:17:40 by ohengelm      #+#    #+#                 */
+/*   Updated: 2023/03/24 20:05:25 by ohengelm      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
+#include "DiamondTrap.hpp"
+#include "print.hpp"
+#include "colors.hpp"
+
+#include <iostream>
+// std::
+#include <iomanip>
+// std::setw()
+
+void	ex00(void);
+void	ex01(void);
+void	ex02(void);
+void	ex03(void);
+
+int	main(void)
+{
+	ex00();
+	ex01();
+	ex02();
+	ex03();
+}
+
+void	ex00(void)
+{
+	print::headerLine("Exercise 00: Aaaaand... OPEN!");
+
+	ClapTrap	goblin("Goblin");
+	ClapTrap	skeleton("Skeleton");
+	int			i;
+
+	std::cout	<< std::endl;
+	i = 0;
+	while (i < 3)
+	{
+		goblin.attack("Skeleton");
+		skeleton.takeDamage(1);
+		skeleton.beRepaired(10);
+		i++;
+	}
+
+	std::cout	<< std::endl;
+	i = 0;
+	while (i < 7)
+	{
+		goblin.attack("Skeleton");
+		i++;
+	}
+	goblin.attack("Skeleton");
+	skeleton.takeDamage(i);
+
+	std::cout	<< std::endl;
+	goblin.beRepaired(10);
+	skeleton.attack("Goblin");
+	goblin.takeDamage(99);
+	goblin.attack("Skeleton");
+	skeleton.beRepaired(10);
+
+	std::cout	<< std::endl;
+}
+
+void	ex01(void)
+{
+	print::headerLine("Exercise 01: Serena, my love!");
+
+	ScavTrap	witcher("Gerald");
+
+	{
+		print::subHeaderLine("Round 0");
+		ClapTrap	nekker("Nekker");
+		ClapTrap	ghoul("Ghoul");
+		witcher.guardGate();
+
+		print::subHeaderLine("Round 1");
+		nekker.attack(witcher.getName());
+		witcher.takeDamage(nekker.getAttackDamage());
+		ghoul.attack(witcher.getName());
+		witcher.takeDamage(ghoul.getAttackDamage());
+		witcher.attack(nekker.getName());
+		nekker.takeDamage(witcher.getAttackDamage());
+
+		print::subHeaderLine("Round 2");
+		nekker.attack(witcher.getName());
+		ghoul.attack(witcher.getName());
+		witcher.takeDamage(ghoul.getAttackDamage());
+		witcher.attack(ghoul.getName());
+		ghoul.takeDamage(witcher.getAttackDamage());
+		ghoul.attack(witcher.getName());
+		witcher.guardGate();
+	}
+
+	print::subHeaderLine("Display stats");
+	witcher.displayInfo();
+	std::cout	<< std::endl;
+}
+
+void	ex02(void)
+{
+	print::headerLine("Exercise 02: Repetitive work");
+	
+	ScavTrap	witcher("Gerald");
+	FragTrap	bard("Jaskier");
+	{
+		print::subHeaderLine("round 0");
+		ClapTrap	nekker("Nekker");
+		ClapTrap	ghoul("Ghoul");
+		witcher.guardGate();
+		
+		print::subHeaderLine("Round 1");
+		nekker.attack(bard.getName());
+		bard.takeDamage(nekker.getAttackDamage());
+		ghoul.attack(witcher.getName());
+		witcher.takeDamage(ghoul.getAttackDamage());
+
+		print::subHeaderLine("Round 2");
+		witcher.attack(ghoul.getName());
+		ghoul.takeDamage(witcher.getAttackDamage());
+		bard.attack(nekker.getName());
+		nekker.takeDamage(bard.getAttackDamage());
+		nekker.attack(witcher.getName());
+		ghoul.attack(witcher.getName());
+	}
+
+	print::subHeaderLine("Aftermath");
+	bard.highFivesGuys();
+	witcher.guardGate();
+	bard.highFivesGuys();
+
+	print::subHeaderLine("Display stats");
+	witcher.displayInfo();
+	std::cout	<< std::endl;
+	bard.displayInfo();
+
+	std::cout	<< std::endl;
+}
+
+void	ex03(void)
+{
+	print::headerLine("Exercise 03: Now it’s weird!");
+
+	DiamondTrap	princess("Ciri");
+
+	print::subHeaderLine("Demonstrate abilities");
+	princess.attack("Emhyr var Emreis");
+	princess.beRepaired(1);
+	princess.guardGate();
+	princess.highFivesGuys();
+	princess.whoAmI();
+	print::subHeaderLine("Display stats");
+	princess.displayInfo();
+
+	std::cout	<<	std::endl;
+}
