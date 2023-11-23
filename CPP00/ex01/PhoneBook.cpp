@@ -156,14 +156,15 @@ void	PhoneBook::commandHelp(void) const
 
 void	PhoneBook::contactAdd(std::string data[5])
 {
-	static int	i = 0;
-	int			j;
+	static int		i = 0;
 
-	j = 8;
-	while (j > 0 && this->contact[j - 1].getFirstName().empty())
-		j--;
-	if (j > i)
-		i = j;
+	for (unsigned long j = 0;
+		j < sizeof(this->contact) / sizeof(Contact); ++j)
+		if (this->contact[j].getFirstName().empty())
+		{
+			i = j;
+			break ;
+		}
 	this->contact[i] = Contact(data);
 	i = (i + 1) % 8;
 }
@@ -171,8 +172,8 @@ void	PhoneBook::contactAdd(std::string data[5])
 size_t		PhoneBook::requestIndex(void)
 {
 	std::string	str;
-	size_t	index;
-	size_t	max;
+	size_t		index;
+	size_t		max;
 
 	if (this->phonebookContainsContacts() == false)
 		return (-1);
