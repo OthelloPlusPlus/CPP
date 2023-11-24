@@ -16,6 +16,10 @@
 #include "print.hpp"
 #include "colors.hpp"
 
+#include <iostream>
+// std::cout
+#include <iomanip>
+// std::setw
 #include <cstdlib>
 // std::srand
 #include <ctime>
@@ -24,13 +28,14 @@
 #define PRINTW 16
 
 void	test(Base *test);
-Base *generate(void);
+Base	*generate(void);
 void	identify(Base *p);
+void	identify(Base &p);
 
 int	main(void)
 {
 	print::headerLine("Exercise 02: Identify real type");
-	std::srand(std::time(nullptr));
+	std::srand(std::time(NULL));
 
 	print::subHeaderLine("Manual Tests");
 	std::cout	<< std::setw(PRINTW)	<< "Identity true:"	<< "A\n";
@@ -41,7 +46,7 @@ int	main(void)
 	test(new C);
 	print::subHeaderLine("Random Tests");
 	for (int i = 0; i < 4; ++i)
-		test(nullptr);
+		test(NULL);
 
 	return (0);
 }
@@ -55,7 +60,7 @@ void	test(Base *test)
 	identify(test);
 	std::cout	<< '\n'
 				<< std::setw(PRINTW)	<< "Identify Base&:";
-	identify(&(*test));
+	identify(*test);
 	std::cout	<< '\n'	<< std::endl;
 	delete test;
 }
@@ -68,17 +73,17 @@ Base *generate(void)
 		case 0:		std::cout	<< "A\n";	return (new A);
 		case 1:		std::cout	<< "B\n";	return (new B);
 		case 2:		std::cout	<< "C\n";	return (new C);
-		default:	std::cout	<< "?\n";	return (nullptr);
+		default:	std::cout	<< "?\n";	return (NULL);
 	}
 }
 
 void	identify(Base *p)
 {
-	if (dynamic_cast<A *>(p))
+	if (dynamic_cast<A *>(p) != NULL)
 		std::cout	<< 'A';
-	else if (dynamic_cast<B *>(p))
+	else if (dynamic_cast<B *>(p) != NULL)
 		std::cout	<< 'B';
-	else if (dynamic_cast<C *>(p))
+	else if (dynamic_cast<C *>(p) != NULL)
 		std::cout	<< 'C';
 	else
 		std::cout	<< '?';
@@ -102,9 +107,9 @@ void	identify(Base &p)
 						std::cout	<< 'C';
 						return ;
 				default:	std::cout	<< '?';
-							return ;
 			}
 		}
+#if __cplusplus >= 201103L
 		catch(const std::bad_cast &e)
 		{}
 		catch(const std::exception& e)
@@ -112,5 +117,13 @@ void	identify(Base &p)
 			std::cerr	<< C_RED	<< "Error: "
 						<< C_RESET	<< e.what()	<< std::endl;
 		}
+#else
+		catch(const	std::exception &e)
+		{
+			if (std::string("std::bad_cast") != e.what())
+				std::cerr	<< C_RED	<< "Error: "
+							<< C_RESET	<< e.what()	<< std::endl;
+		}
+#endif
 	}
 }
