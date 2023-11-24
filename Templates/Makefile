@@ -3,6 +3,7 @@ NAME =	projectname
 CC =	c++
 CFLAGS +=	-Wall -Wextra -Werror
 CFLAGS +=	-std=c++98
+DEPFLAGS +=	-MMD -MF $(DEP_DIR)$*.d
 
 INCL_HDR :=	$(shell find . -type f -name '*.hpp' -exec dirname "{}" \; | \
 					uniq | sed -e 's/^/-I/g')
@@ -12,25 +13,39 @@ SRC_MAIN =	main.cpp
 SRC_CLASS =	ClassName.cpp
 SRC_FUNC =	
 
-OBJ =	$(SRC:%.cpp=%.o)
+DIRS =	$(OBJ_DIR) $(DEP_DIR)
+OBJ_DIR =	obj/
+TEMP = $(notdir $(SRC))
+OBJ =	$(TEMP:%.cpp=$(OBJ_DIR)%.o)
+DEP_DIR =	dep/
+DEP =	$(TEMP:%.cpp=$(DEP_DIR)%.d)
 
-all: $(NAME)
+all: $(DIRS) $(NAME)
+
+$(DIRS):
+	@mkdir $(DIRS)
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.cpp
-	@$(CC) $(CFLAGS) $(INCL_HDR) -c $< -o $@
+$(OBJ_DIR)%.o: %.cpp
+	@$(CC) $(CFLAGS) $(DEPFLAGS) $(INCL_HDR) -c $< -o $@
+
+$(OBJ_DIR)%.o: ../*/%.cpp
+	@$(CC) $(CFLAGS) $(DEPFLAGS) $(INCL_HDR) -c $< -o $@
+
+-include $(DEP)
 
 subject: all
 	./$(NAME)
 
 clean:
-	@rm -f $(OBJ)
+	@rm -f $(OBJ) $(DEP)
 
 fclean: clean
 	@rm -f $(NAME)
 	@rm -f ._*
+	@rmdir $(DIRS) 2> /dev/null || true
 
 re: fclean all
 
