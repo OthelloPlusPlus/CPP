@@ -11,10 +11,6 @@
 /* ************************************************************************** */
 
 #include "Serializer.hpp"
-#include "colors.hpp"
-
-#include <iostream>
-// std::
 
 /** ************************************************************************ **\
  * 
@@ -22,36 +18,11 @@
  * 
 \* ************************************************************************** */
 
-// Serializer::Serializer(void)
-// {
-// 	std::cout	<< C_DGREEN	<< "Default constructor "
-// 				<< C_GREEN	<< "Serializer"
-// 				<< C_DGREEN	<< " called."
-// 				<< C_RESET	<< std::endl;
-// }
-
-// Serializer::Serializer(const Serializer &src)
-// {
-// 	*this = src;
-// 	std::cout	<< C_DGREEN	<< "Copy constructor "
-// 				<< C_GREEN	<< "Serializer"
-// 				<< C_DGREEN	<< " called."
-// 				<< C_RESET	<< std::endl;
-// }
-
 /** ************************************************************************ **\
  * 
  * 	Deconstructors
  * 
 \* ************************************************************************** */
-
-// Serializer::~Serializer(void)
-// {
-// 	std::cout	<< C_DRED	<< "Deconstructor "
-// 				<< C_RED	<< "Serializer"
-// 				<< C_DRED	<< " called"
-// 				<< C_RESET	<< std::endl;
-// }
 
 /** ************************************************************************ **\
  * 
@@ -74,11 +45,3 @@ Data*		Serializer::deserialize(uintptr_t raw)
  * 	Operators
  * 
 \* ************************************************************************** */
-
-// Serializer	&Serializer::operator=(const Serializer &src)
-// {
-// 	if (this == &src)
-// 		return (*this);
-
-// 	return (*this);
-// }

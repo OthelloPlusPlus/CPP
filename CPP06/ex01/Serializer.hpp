@@ -18,19 +18,17 @@
 class Serializer
 {
 	private:
-		Serializer(void);
 
 	protected:
 
 	public:
-		// Serializer(void);
-		// Serializer(const Serializer &src);
-		// ~Serializer(void);
+		Serializer(void) = delete;
+		Serializer(const Serializer &src) = delete;
+		~Serializer(void) = delete;
+		Serializer	&operator=(const Serializer &src) = delete;
 
 		static uintptr_t	serialize(Data* ptr);
 		static Data*		deserialize(uintptr_t raw);
-
-		// Serializer	&operator=(const Serializer &src);
 };
 
 #endif

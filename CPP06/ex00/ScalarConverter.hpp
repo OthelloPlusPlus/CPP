@@ -22,12 +22,16 @@ class ScalarConverter
 		static std::string	value;
 
 		ScalarConverter(void){}
+		~ScalarConverter(void){}
 
 		template <typename T>
 		static void convertTemplate(void);
 		static void	setCout(void);
 
 	public:
+		ScalarConverter(const ScalarConverter &src) = delete;
+		ScalarConverter	&operator=(const ScalarConverter &src) = delete;
+
 		static void convert(std::string value);
 
 		explicit operator char();

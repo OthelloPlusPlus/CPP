@@ -32,10 +32,30 @@
 
 std::string	ScalarConverter::value;
 
+/** ************************************************************************ **\
+ * 
+ * 	Constructors
+ * 
+\* ************************************************************************** */
+
+/** ************************************************************************ **\
+ * 
+ * 	Deconstructors
+ * 
+\* ************************************************************************** */
+
+/** ************************************************************************ **\
+ * 
+ * 	Member Functions
+ * 
+\* ************************************************************************** */
+
 void	ScalarConverter::convert(std::string value)
 {
 	if (value.length() == 1 && std::isprint(value[0]) && !std::isdigit(value[0]))
 		ScalarConverter::value = std::to_string(value[0]);
+	else if (value.length() > 1 && value[value.length() - 1] == 'f')
+		ScalarConverter::value = value.substr(0, value.length() - 1);
 	else
 		ScalarConverter::value = value;
 
@@ -49,7 +69,7 @@ void	ScalarConverter::convert(std::string value)
 
 void	ScalarConverter::setCout(void)
 {
-	int	precision(0);
+	int	precision(1);
 
 	if (ScalarConverter::value.find_last_of('.') != std::string::npos)
 		precision = ScalarConverter::value.length() - ScalarConverter::value.find_last_of('.') - 1;
@@ -89,6 +109,12 @@ void	ScalarConverter::convertTemplate(void)
 	}
 	std::cout	<< std::endl;
 }
+
+/** ************************************************************************ **\
+ * 
+ * 	Operators
+ * 
+\* ************************************************************************** */
 
 ScalarConverter::operator char()
 {

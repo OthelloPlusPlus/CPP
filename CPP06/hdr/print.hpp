@@ -23,10 +23,14 @@
 namespace print
 {
 	template <typename T>
+# if __cplusplus >= 201103L
 	typename std::enable_if<std::is_same<T, char *>::value || 
 							std::is_same<T, const char *>::value ||
 							std::is_same<T, std::string>::value>::type
 	headerLine(T str)
+# else
+	void headerLine(T str)
+# endif
 	{
 		std::cout	<< CB_ORANGE << C_BOLD << C_SILVER
 					<< std::setw(80) << std::left << std::string(" ") + str
@@ -34,10 +38,14 @@ namespace print
 	}
 
 	template <typename T>
+# if __cplusplus >= 201103L
 	typename std::enable_if<std::is_same<T, char *>::value || 
 							std::is_same<T, const char *>::value ||
 							std::is_same<T, std::string>::value>::type
 	subHeaderLine(T str)
+# else
+	void subHeaderLine(T str)
+# endif
 	{
 		std::cout	<< CB_DORANGE << C_BOLD << C_SILVER
 					<< std::setw(42) << std::left << std::string(" ") + str
