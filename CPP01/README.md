@@ -3,13 +3,19 @@
 
 # Table of Contents
 - Excersises
-  - [Exercise 00](#exercise-00)
+  - [Exercise 00](#exercise-00---braiiiiiiinnnzzzz)
+  - [Exercise 01](#exercise-01---moar-brainz)
+  - [Exercise 02](#exercise-02---moar-brainz)
+  - [Exercise 03](#exercise-03---moar-brainz)
+  - [Exercise 04](#exercise-04---moar-brainz)
+  - [Exercise 05](#exercise-05---moar-brainz)
+  - [Exercise 06](#exercise-06---moar-brainz)
 - [Evaluation](#evaluation)
 - [Creator](#creator)
 
 # Exercises
-## Exercise 00
-
+## Exercise 00 - BraiiiiiiinnnzzzZ
+This exercise is desgined to demonstrate the use of stack and heap in C++. You are required to create a simple [Zombie class](ex00/Zombie.hpp) and intialise it in different methods. Demonstrating the [scope](ex00/randomChump.cpp) in which a class allocated on the **stack** exists and the keywords [new](ex00/newZombie.cpp#L22) and [delete](ex00/main.cpp#L62) which allocate and free objects on the **heap**.
 <table>
 	<thead style="background-color: #C0C0C0;">
 		<tr><th colspan="3">Terminal Commands</th></tr>
@@ -21,9 +27,29 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td><a href="" target="_blank"></a></td>
-			<td></td>
-			<td></td>
+			<td><a href="ex00/Makefile" target="_blank">make</a></td>
+			<td>subject</td>
+			<td>Compiles the files into zombie and runs it</td>
+		</tr>
+	</tbody>
+</table>
+
+## Exercise 01 - Moar brainz!
+This excersize expands on the first exercise by demonstrating how allocate objects in an array on the **heap**. This is done by adding [] to the use of [new](ex01/zombieHorde.cpp#L28) and [delete](ex01/main.cpp#L60).
+<table>
+	<thead style="background-color: #C0C0C0;">
+		<tr><th colspan="3">Terminal Commands</th></tr>
+		<tr>
+			<th>Command</th>
+			<th>Arguments</th>
+			<th>Functionality</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><a href="ex01/Makefile" target="_blank">make</a></td>
+			<td>subject</td>
+			<td>Compiles the files into horde and runs it</td>
 		</tr>
 	</tbody>
 </table>
