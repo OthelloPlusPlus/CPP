@@ -87,9 +87,9 @@ The output of the tests [changes](ex02/main.cpp#L112) depending on the C++ versi
 > "Really really nice code. Went way above what the subject was asking for and the explanations were perfect. I am currently working on this project at the moment and with so much precise information I now feel comfortable doing it ! Thanks and good luck for your next projects"
 > 		- Maximilien Bernede
 
-**Score:** %
-> ""
-> 		- 
+**Score:** 100%
+> "Truly flabbergasted, genuinely impressed, sincerely blown out from the high standard and excellent quality of your project. Outstanding points: the cure of the details, the use of the acquired knowledge to create an elevated program, the test available, not to mention the formatting of output to the terminal. Great job!!"
+> 		- [Emanuela Licameli](https://github.com/MagicEmy)
 > 
 # Creator
 Othello<br>
