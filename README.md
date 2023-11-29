@@ -4,42 +4,6 @@
 > We are aware modern C++ is way different in a lot of aspects. So if you want to become a proficient C++ developer, it’s up to you to go further after the 42 Common Core!
 > You will discover new concepts step-by-step. The exercises will progressively increase in complexity.
 
-# Table of Contents
-- Excersises
-  - [Exercise 00](#exercise-00)
-- [Evaluation](#evaluation)
-- [Creator](#creator)
-
-# Exercises
-## Exercise 00
-
-<table>
-	<thead style="background-color: #C0C0C0;">
-		<tr><th colspan="3">Terminal Commands</th></tr>
-		<tr>
-			<th>Command</th>
-			<th>Arguments</th>
-			<th>Functionality</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><a href="" target="_blank"></a></td>
-			<td></td>
-			<td></td>
-		</tr>
-	</tbody>
-</table>
-
-# Evaluation
-**Score:** %
-> ""
-> 		- 
-
-**Score:** %
-> ""
-> 		- 
-
 # Creator
 Othello<br>
 [<img alt="LinkedIn" height="32px" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" target="_blank" />](https://github.com/OthelloPlusPlus)
