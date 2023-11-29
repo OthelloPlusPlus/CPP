@@ -14,7 +14,7 @@ NAME =	array
 
 CC =	c++
 CFLAGS +=	-Wall -Wextra -Werror
-CFLAGS +=	-std=c++98
+# CFLAGS +=	-std=c++98
 DEPFLAGS +=	-MMD -MF $(DEP_DIR)$*.d
 
 INCL_HDR :=	$(shell find .. -type f -name '*.hpp' -exec dirname "{}" \; | \
