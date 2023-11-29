@@ -19,6 +19,8 @@
 // std::
 # include <iomanip>
 // std::setw()
+#include <string>
+// std::string
 
 namespace print
 {
@@ -49,6 +51,49 @@ namespace print
 	{
 		std::cout	<< CB_DORANGE << C_BOLD << C_SILVER
 					<< std::setw(42) << std::left << std::string(" ") + str
+					<< C_RESET	<< std::endl;
+	}
+
+	template <typename T>
+# if __cplusplus >= 201103L
+	typename std::enable_if<std::is_same<T, char *>::value || 
+							std::is_same<T, const char *>::value ||
+							std::is_same<T, std::string>::value>::type
+	note(T str)
+# else
+	void note(T str)
+# endif
+	{
+		std::cout	<< CB_SILVER << C_BOLD << C_ORANGE
+					<< std::setw(42) << std::left << std::string(" Note: ") + str
+					<< C_RESET	<< std::endl;
+	}
+	template <typename T>
+# if __cplusplus >= 201103L
+	typename std::enable_if<std::is_same<T, char *>::value || 
+							std::is_same<T, const char *>::value ||
+							std::is_same<T, std::string>::value>::type
+	tableHead(T str)
+# else
+	void tableHead(T str)
+# endif
+	{
+		std::string string(str);
+		int			tabSize = 8;
+		std::string	temp(tabSize, ' ');
+		const char	*spaces = temp.c_str();
+
+		for (size_t i = 0; i < string.length(); ++i)
+		{
+			if (string[i] == '\t')
+			{
+				string.erase(i, 1);
+				string.insert(i, spaces, tabSize - (i % tabSize));
+				--i;
+			}
+		}
+		std::cout	<< CB_SILVER << C_BOLD << C_ORANGE
+					<< std::setw(42) << std::left << string
 					<< C_RESET	<< std::endl;
 	}
 };
