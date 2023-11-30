@@ -6,7 +6,7 @@
 /*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 19:52:33 by ohengelm          #+#    #+#             */
-/*   Updated: 2023/11/24 19:52:34 by ohengelm         ###   ########.fr       */
+/*   Updated: 2023/11/30 17:30:39 by ohengelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 #include <iostream>
 // std::cout
 
-int	testSubject(void);
+int		testSubject(void);
+int		testEvaluation(void);
 void	testManual(void);
 
 int	main(void)
@@ -24,6 +25,7 @@ int	main(void)
 	print::headerLine(" Start with a few functions");
 	std::cout	<< "C++ version:\t"	<< __cplusplus	<< std::endl;
 	testSubject();
+	testEvaluation();
 	testManual();
 }
 
@@ -47,6 +49,37 @@ int	testSubject(void)
 	std::cout << "max( c, d ) = " << ::max( c, d ) << std::endl;
 
 	return 0;
+}
+
+class Awesome
+{
+	public:
+		Awesome(void) : _n(0) {}
+		Awesome( int n ) : _n( n ) {}
+		Awesome(const Awesome &src) {this->_n = src.get_n();}//added because:d efinition of implicit copy constructor is deprecated
+		Awesome & operator= (Awesome & a) { _n = a._n; return *this; }
+		bool operator==( Awesome const & rhs ) const { return (this->_n == rhs._n); }
+		bool operator!=( Awesome const & rhs ) const{ return (this->_n != rhs._n); }
+		bool operator>( Awesome const & rhs ) const { return (this->_n > rhs._n); }
+		bool operator<( Awesome const & rhs ) const { return (this->_n < rhs._n); }
+		bool operator>=( Awesome const & rhs ) const { return (this->_n >= rhs._n); }
+		bool operator<=( Awesome const & rhs ) const { return (this->_n <= rhs._n); }
+		int get_n() const { return _n; }
+	private:
+		int	_n;
+};
+std::ostream & operator<<(std::ostream & o, const Awesome &a) { o << a.get_n(); return o; }
+
+int	testEvaluation(void)
+{
+	print::subHeaderLine("Evaluation Tests");
+	Awesome a(2), b(4);
+
+	swap(a, b);
+	std::cout << a << " " << b << std::endl;
+	std::cout << max(a, b) << std::endl;
+	std::cout << min(a, b) << std::endl;
+	return (0);
 }
 
 void	testManual(void)
