@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/30 14:14:33 by ohengelm          #+#    #+#             */
+/*   Updated: 2023/11/30 14:14:35 by ohengelm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Array.hpp"
 #include "print.hpp"
 
@@ -10,14 +22,16 @@
 
 int		testSubject(void);
 void	testEmpty(void);
-void	testArray(unsigned int size);
+void	testArrayInt(unsigned int size);
+void	testArrayString(void);
 
 int	main(void)
 {
 	print::headerLine("Exercise 02: Array");
 	testSubject();
 	testEmpty();
-	testArray(4);
+	testArrayInt(4);
+	testArrayString();
 	return (0);
 }
 
@@ -89,9 +103,9 @@ void	testEmpty(void)
 	}
 }
 
-void	testArray(unsigned int size)
+void	testArrayInt(unsigned int size)
 {
-	print::subHeaderLine("Testing Array");
+	print::subHeaderLine("Testing <int> Array");
 	Array<int>	base(size);
 	for (int i = 0; i < static_cast<int>(base.size()); ++i)
 		base[i] = i;
@@ -114,4 +128,23 @@ void	testArray(unsigned int size)
 		std::cerr	<< C_RED	<< e.what() 
 					<< C_RESET	<< std::endl;
 	}
+}
+
+void	testArrayString(void)
+{
+	print::subHeaderLine("Testing <std::string> Array");
+	Array<std::string>	array(5);
+
+	array[0] = "Lorem";
+	array[1] = "ipsum";
+	array[2] = "dolor";
+	array[3] = "sit";
+	array[4] = "amet";
+	for (unsigned int i = 0; i < array.size(); ++i)
+		array[i] += '!';
+	std::cout	<< "array.size()\t"	<< array.size()	<< std::endl;
+	print::tableHead("array[i]\tstd::string");
+	for (unsigned int i = 0; i < array.size(); ++i)
+		std::cout	<< "array["	<< i	<< "]\t"	<< array[i]	<< '\n';
+	std::cout	<< std::flush;
 }
