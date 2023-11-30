@@ -6,9 +6,12 @@
 /*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:36:07 by ohengelm          #+#    #+#             */
-/*   Updated: 2023/11/24 20:36:08 by ohengelm         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:17:12 by ohengelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef ITER_HPP
+# define ITER_HPP
 
 #include "colors.hpp"
 
@@ -38,3 +41,5 @@ void	testIter(PTR ptr, INDEX len, FUNC f)
 		std::cout	<< ptr[i];
 	std::cout	<< ']'	<< std::endl;
 }
+
+#endif
