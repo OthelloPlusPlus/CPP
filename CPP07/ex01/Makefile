@@ -6,7 +6,7 @@
 #    By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/24 19:53:35 by ohengelm          #+#    #+#              #
-#    Updated: 2023/11/24 19:53:37 by ohengelm         ###   ########.fr        #
+#    Updated: 2023/11/30 20:02:39 by ohengelm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,14 @@ NAME =	iter
 
 CC =	c++
 CFLAGS +=	-Wall -Wextra -Werror
-CFLAGS +=	-std=c++98
+# CFLAGS +=	-std=c++98
 DEPFLAGS +=	-MMD -MF $(DEP_DIR)$*.d
 
 INCL_HDR :=	$(shell find .. -type f -name '*.hpp' -exec dirname "{}" \; | \
 					uniq | sed -e 's/^/-I/g')
 
 SRC =	$(SRC_MAIN) $(SRC_CLASS) $(SRC_FUNC)
-SRC_MAIN =	main.cpp
+SRC_MAIN =	main2.cpp
 SRC_CLASS =	
 SRC_FUNC =	
 
