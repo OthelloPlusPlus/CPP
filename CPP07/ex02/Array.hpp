@@ -33,7 +33,6 @@ class Array
 		unsigned int	size(void) const;
 
 		Array	&operator=(const Array &src);
-		// T		&operator[](unsigned int i);
 		T		&operator[](unsigned int i) const;
 };
 
