@@ -6,7 +6,7 @@
 /*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 19:52:47 by ohengelm          #+#    #+#             */
-/*   Updated: 2023/11/30 17:30:08 by ohengelm         ###   ########.fr       */
+/*   Updated: 2023/12/01 20:10:17 by ohengelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ T min(T val1, Args... args)
 template <typename T, typename... Args>
 T max(T val1, Args... args)
 {
-	T	val2 = min(args...);
+	T	val2 = max(args...);
 	if (val1 >= val2)
 		return (val1);
 	return (val2);

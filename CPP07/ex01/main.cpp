@@ -6,7 +6,7 @@
 /*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:54:50 by ohengelm          #+#    #+#             */
-/*   Updated: 2023/12/01 17:46:07 by ohengelm         ###   ########.fr       */
+/*   Updated: 2023/12/01 20:10:34 by ohengelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ void	argvTests(int argc, char **argv)
 
 void	defaultTests(void)
 {
-	print::subHeaderLine("Default test - char *");
+	print::subHeaderLine("Default test - int *");
 	int	iarr[] = {79, 116, 104, 101, 108, 108, 111, 50, 51};
 	std::cout	<< C_LORANGE	<<	"toUpper";
 	runTest<int>(iarr, sizeof(iarr) / sizeof(*iarr), toUpper<int>);
 	runTest<int>(iarr, iarr, sizeof(iarr) / sizeof(*iarr), getRandomTFunction<int>());
 
-	print::subHeaderLine("Default test - int *");
+	print::subHeaderLine("Default test - char *");
 	char	carr[] = "char\tHello World";
 	std::cout	<< C_LORANGE	<<	"toLeet";
 	runTest<char>(carr, std::strlen(carr), toLeet<char>);
