@@ -6,7 +6,7 @@
 /*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 19:52:33 by ohengelm          #+#    #+#             */
-/*   Updated: 2023/11/30 17:30:39 by ohengelm         ###   ########.fr       */
+/*   Updated: 2023/12/01 18:21:05 by ohengelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 // std::cout
+#include <sstream>
 
 int		testSubject(void);
 int		testEvaluation(void);
@@ -22,8 +23,7 @@ void	testManual(void);
 
 int	main(void)
 {
-	print::headerLine(" Start with a few functions");
-	std::cout	<< "C++ version:\t"	<< __cplusplus	<< std::endl;
+	print::headerLine("ex00 - Start with a few functions");
 	testSubject();
 	testEvaluation();
 	testManual();
@@ -56,7 +56,7 @@ class Awesome
 	public:
 		Awesome(void) : _n(0) {}
 		Awesome( int n ) : _n( n ) {}
-		Awesome(const Awesome &src) {this->_n = src.get_n();}//added because:d efinition of implicit copy constructor is deprecated
+		Awesome(const Awesome &src) {this->_n = src.get_n();}//added because: definition of implicit copy constructor is deprecated
 		Awesome & operator= (Awesome & a) { _n = a._n; return *this; }
 		bool operator==( Awesome const & rhs ) const { return (this->_n == rhs._n); }
 		bool operator!=( Awesome const & rhs ) const{ return (this->_n != rhs._n); }
@@ -85,15 +85,20 @@ int	testEvaluation(void)
 void	testManual(void)
 {
 	print::subHeaderLine("Manual Tests (C++98)");
+
+	print::tableHead("Swap");
 	std::string	lorem("ipsum");
 	std::string ipsum("lorem");
-
-	::swap(lorem, ipsum);
-	std::cout	<< lorem	<< ' '	<< ipsum	<< std::endl;
 	int	a = 42;
 	int	b = 23;
-
+	std::cout	<< lorem	<< ' '	<< ipsum	<< std::endl;
+	::swap(lorem, ipsum);
+	std::cout	<< lorem	<< ' '	<< ipsum	<< std::endl;
+	std::cout	<< a	<< ' '	<< b	<< std::endl;
 	::swap(a, b);
+	std::cout	<< a	<< ' '	<< b	<< std::endl;
+
+	print::tableHead("Min/Max");
 	std::cout	<< a	<< "\ta\n"
 				<< b	<< "\tb\n"
 				<< ::min(a, b) << "\t::min(a, b)\n"
@@ -105,12 +110,18 @@ void	testManual(void)
 	int	d = 0;
 	int	e = 1;
 
-	std::cout	<< ::min(a)	<< "\t::min(a)\n"
+	std::cout	<< " a"	<< a	<< " b"	<< b	<< " c"	<< c	<< " d"	<< d	<< " e"	<< e	<< '\n'	
+				<< ::min(a)	<< "\t::min(a)\n"
 				<< ::min(b, a, c, e, d)	<< "\t::min(b, a, c, e, d)\n"
 				<< ::max(b)	<< "\t::max(b)\n"
 				<< ::max(b, a, c, e, d)	<< "\t::max(b, a, c, e, d)\n"
-				<< ::min(&a, &b)	<< "\t::min(&d, &e)\n"
-				<< ::max(&a, &b)	<< "\t::max(&d, &e)\n"
+				<< ::min(&a, &b)	<< "\t::min(&a, &b)\n"
+				<< ::max(&a, &b)	<< "\t::max(&a, &b)\n"
 				<< std::flush;
+#else
+	std::ostringstream oss;
+
+	oss << "C++ version: " << __cplusplus;
+	print::note(oss.str());
 #endif
 }

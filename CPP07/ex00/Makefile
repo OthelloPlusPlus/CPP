@@ -6,7 +6,7 @@
 #    By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/24 19:52:40 by ohengelm          #+#    #+#              #
-#    Updated: 2023/11/30 17:30:25 by ohengelm         ###   ########.fr        #
+#    Updated: 2023/12/01 18:21:22 by ohengelm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME =	minmax
 
 CC =	c++
 CFLAGS +=	-Wall -Wextra -Werror
-# CFLAGS +=	-std=c++98
+CFLAGS +=	-std=c++98
 DEPFLAGS +=	-MMD -MF $(DEP_DIR)$*.d
 
 INCL_HDR :=	$(shell find .. -type f -name '*.hpp' -exec dirname "{}" \; | \
