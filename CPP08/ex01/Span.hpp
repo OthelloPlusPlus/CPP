@@ -15,12 +15,15 @@
 
 #include <vector>
 // std::vector
+#include <set>
+// std::multiset
 
 class Span
 {
 	private:
-		unsigned int	maxSize;
+		unsigned int		maxSize;
 		std::vector<int>	span;
+		bool				sorted;
 
 	protected:
 
@@ -31,13 +34,12 @@ class Span
 
 		void	addNumber(int value);
 		void	addNumbers(unsigned int count);
-		long	shortestSpan(void) const;
-		long	longestSpan(void) const;
+		long	shortestSpan(void);
+		long	longestSpan(void);
 
 		unsigned int	size(void) const {return (this->span.size());};
 		unsigned int	maxsize(void) const {return (this->maxSize);};
 		void	printSpan(void);
-
 
 		Span	&operator=(const Span &src);
 };

@@ -29,7 +29,7 @@
  * 
 \* ************************************************************************** */
 
-Span::Span(unsigned int size): maxSize(size)
+Span::Span(unsigned int size): maxSize(size), sorted(false)
 {
 	// std::cout	<< C_DGREEN	<< "Default constructor "
 	// 			<< C_GREEN	<< "Span"
@@ -71,7 +71,7 @@ void	Span::addNumber(int value)
 	if (this->span.size() >= this->maxSize)
 		throw(std::overflow_error("Span is full"));
 	this->span.push_back(value);
-	// ++this->span.size();
+	this->sorted = false;
 }
 
 void	Span::addNumbers(unsigned int count)
@@ -82,37 +82,37 @@ void	Span::addNumbers(unsigned int count)
 	{
 		for (unsigned int i = 0; i < count; ++i)
 			this->addNumber(std::rand());
+		std::sort(this->span.begin(), this->span.end());
 	}
 	catch(const std::exception &e)
 	{}	
 }
 
-long	Span::shortestSpan(void) const
+long	Span::shortestSpan(void)
 {
 	if (this->span.size() < 2)
 		throw (std::range_error(std::string("Not enough numbers for ") + __func__));
-	std::vector<int>	cpy(this->span);
-	long				shortest = std::numeric_limits<long>::max();
-
-	std::sort(cpy.begin(), cpy.end());
-	for (std::vector<int>::iterator i = cpy.begin(); i + 1 != cpy.end(); ++i)
+	long	shortest = this->longestSpan();
+	
+	for (std::vector<int>::const_iterator i = ++this->span.begin(); i != this->span.end(); ++i)
 	{
-		long	temp = *(i + 1) - *i;
-		if (temp < shortest)
-		{
-			// std::cout	<<C_CYAN<< temp <<" = "<<*(i + 1)<<" - "<<*i<<C_RESET<<std::endl;
-			shortest = temp;
-		}
+		std::vector<int>::const_iterator prev = i;
+		if (*i - *(--prev) < shortest)
+			shortest = *i - *prev;
 	}
 	return (shortest);
 }
 
-long	Span::longestSpan(void) const
+long	Span::longestSpan(void)
 {
 	if (this->span.size() < 2)
 		throw (std::range_error(std::string("Not enough numbers for ") + __func__));
-	return (*std::max_element(this->span.begin(), this->span.end()) - \
-			*std::min_element(this->span.begin(), this->span.end()));
+	if (!this->sorted)
+	{
+		std::sort(this->span.begin(), this->span.end());
+		this->sorted = true;
+	}
+	return (*this->span.rbegin() - *this->span.begin());
 }
 
 void	Span::printSpan(void)
@@ -134,5 +134,6 @@ Span	&Span::operator=(const Span &src)
 		return (*this);
 	this->maxSize = src.maxSize;
 	this->span = src.span;
+	this->sorted = src.sorted;
 	return (*this);
 }

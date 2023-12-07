@@ -6,12 +6,13 @@
 /*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:58:37 by ohengelm          #+#    #+#             */
-/*   Updated: 2023/12/07 18:53:31 by ohengelm         ###   ########.fr       */
+/*   Updated: 2023/12/07 20:25:12 by ohengelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Span.hpp"
 #include "print.hpp"
+#include "colors.hpp"
 
 #include <cstdlib>
 // std::srand()
@@ -41,7 +42,7 @@ int	main(void)
 	testManualRandom(2, 23);
 	testManualRandom(23, 3);
 	testManualRandom(0x3fff, 0x3fff);
-	testManualRandom(0xffffff, 0xffffff);
+	// testManualRandom(0xffffff, 0xffffff);
 	return (0);
 }
 
@@ -78,7 +79,9 @@ void	testManualSequential(unsigned int size)
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr	<< C_RED	<< "Error: "
+					<< C_RESET	<< e.what()
+					<< std::endl;
 	}
 	testPrint(span);
 }

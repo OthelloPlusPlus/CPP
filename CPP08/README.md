@@ -124,3 +124,7 @@ This exercise required you to make a template function which finds the first occ
 	</tbody>
 </table>
 
+## Exercise 01 - Span
+This exercise requires you to make a class Span which can contain a list of integers.
+
+It can then find the shortest and longest spans between these integers.
