@@ -93,13 +93,9 @@ long	Span::shortestSpan(void)
 	if (this->span.size() < 2)
 		throw (std::range_error(std::string("Not enough numbers for ") + __func__));
 	long	shortest = this->longestSpan();
-	
-	for (std::vector<int>::const_iterator i = ++this->span.begin(); i != this->span.end(); ++i)
-	{
-		std::vector<int>::const_iterator prev = i;
-		if (*i - *(--prev) < shortest)
-			shortest = *i - *prev;
-	}
+
+	for (std::vector<int>::const_iterator i = this->span.begin() + 1; i != this->span.end(); ++i)
+		shortest = std::min(shortest, ((long)*i - (long)*(i - 1)));
 	return (shortest);
 }
 
