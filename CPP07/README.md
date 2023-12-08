@@ -72,15 +72,14 @@ This excercise requires you to create a [template class](ex02/Array.hpp#L18) whi
   </tbody>
 </table>
 
-
 # Evaluation
-**Score:** %
-> ""
-> 		- 
+**Score:** 100%
+> "Amazing job as always! this project is really class Awesome! I praise you for the fantastic set of tests, customized preprocessor instructions based on different  the compilation standards, advanced use of templates and of course the well curated and colorful output on terminal. Bravo!!!!  "
+> 		- Emanuela Licameli
 
-**Score:** %
-> ""
-> 		- 
+**Score:** 100%
+> "Great job on making this project better then what the subject asks, makes thorough tests and really was able to explain every piece of his code when asked. Great eval. Good luck on the following Cpp modules!"
+> 		- Kaay Altevogt
 # Creator
 Othello<br>
 [<img alt="LinkedIn" height="32px" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" target="_blank" />](https://github.com/OthelloPlusPlus)

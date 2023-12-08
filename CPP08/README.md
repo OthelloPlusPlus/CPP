@@ -9,6 +9,14 @@ There are two main categories of containers in the STL: [Sequence containers](ht
 
 The STL also contains a variety of template functions. These templates can be accessed with a variety of types and adjust their functionality accordingly. This adaptability is limited and should be considered by the programmer.
 
+# Table of Contents
+- Excersises
+  - [Exercise 00](#exercise-00---easy-find)
+  - [Exercise 01](#exercise-01---span)
+  - [Exercise 02](#exercise-02---mutated-abomination)
+- [Evaluation](#evaluation)
+- [Creator](#creator)
+
 ## Exercise 00 - Easy find
 This exercise introduces you to the containers and template functions stored in the STL. It requires you to create a template function which can find an integer value stored in a container<int>. For this [std::find()](https://en.cppreference.com/w/cpp/algorithm/find) and container.begin() and container.end() are used. These options are broadly complatible, but not universal.
 
@@ -155,3 +163,16 @@ After the addition of iterators and [associated member functions](ex02/MutantSta
 		</tr>
 	</tbody>
 </table>
+
+# Evaluation
+**Score:** %
+> ""
+> 		- 
+
+**Score:** %
+> ""
+> 		- 
+# Creator
+Othello<br>
+[<img alt="LinkedIn" height="32px" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" target="_blank" />](https://github.com/OthelloPlusPlus)
+[<img alt="LinkedIn" height="32px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/600px-LinkedIn_logo_initials.png" target="_blank" />](https://nl.linkedin.com/in/orlando-hengelmolen)
