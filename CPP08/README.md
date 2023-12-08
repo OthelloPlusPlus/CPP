@@ -1,14 +1,6 @@
 # Intro
 > Templated containers, iterators, algorithms
 
-# Table of Contents
-- Excersises
-  - [Exercise 00](#exercise-00---easy-find)
-  - [Exercise 01](#exercise-01---span)
-  - [Exercise 02](#exercise-02---mutated-abomination)
-- [Evaluation](#evaluation)
-- [Creator](#creator)
-
 [Containers](https://en.cppreference.com/w/cpp/container) are objects that store and manage collections of elements. They provide a way to organize and manipulate data in a structured manner. Containers are part of the C++ Standard Template Library (STL) and are implemented as templates, allowing them to work with different data types.
 
 There are two main categories of containers in the STL: [Sequence containers](https://en.cppreference.com/w/cpp/container#Sequence_containers) and [Associative containers](https://en.cppreference.com/w/cpp/container#Associative_containers).
@@ -16,6 +8,14 @@ There are two main categories of containers in the STL: [Sequence containers](ht
 - Associative containers store data based on keys. These keys specify a reference value which is coupled to the stored data, allowing easy access to each element based on its key.
 
 The STL also contains a variety of template functions. These templates can be accessed with a variety of types and adjust their functionality accordingly. This adaptability is limited and should be considered by the programmer.
+
+# Table of Contents
+- Excersises
+  - [Exercise 00](#exercise-00---easy-find)
+  - [Exercise 01](#exercise-01---span)
+  - [Exercise 02](#exercise-02---mutated-abomination)
+- [Evaluation](#evaluation)
+- [Creator](#creator)
 
 ## Exercise 00 - Easy find
 This exercise introduces you to the containers and template functions stored in the STL. It requires you to create a template function which can find an integer value stored in a container<int>. For this [std::find()](https://en.cppreference.com/w/cpp/algorithm/find) and container.begin() and container.end() are used. These options are broadly complatible, but not universal.
