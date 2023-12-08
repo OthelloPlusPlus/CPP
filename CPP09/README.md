@@ -12,13 +12,25 @@ Within the STL there are [several containers](https://en.cppreference.com/w/cpp/
 - [Creator](#creator)
 
 ## Exercise 00 - Bitcoin Exchange
-- Chosen container: [std::map<std::string, double>](https://en.cppreference.com/w/cpp/container/map) (Ordered Associative Container)
+| Container | [std::map](https://en.cppreference.com/w/cpp/container/map) |
+| :--- | :--- |
+| Template | `<std::string, double>` |
+| Type | [Ordered Associative Container](https://en.cppreference.com/w/cpp/container#Associative_containers) |
 
 ## Exercise 01 - Reverse Polish Notation
-- Chosen container: [std::stack<double>](https://en.cppreference.com/w/cpp/container/stack) (Container Adaptor)
+| Container | [std::stack](https://en.cppreference.com/w/cpp/container/stack) |
+| :--- | :--- |
+| Template | `<double>` |
+| Type | [Container Adeptor](https://en.cppreference.com/w/cpp/container#Container_adaptors) |
 
 ## Exercise 02 - PmergeMe
-- Chosen containers: [std::vector](https://en.cppreference.com/w/cpp/container/vector) & [std::deque](https://en.cppreference.com/w/cpp/container/deque) & [std::list](https://en.cppreference.com/w/cpp/container/list) (Sequence Containers)
+|||
+| :--- | :--- |
+| Containers | [std::vector](https://en.cppreference.com/w/cpp/container/vector) |
+|| [std::deque](https://en.cppreference.com/w/cpp/container/deque) |
+|| [std::list](https://en.cppreference.com/w/cpp/container/list) |
+| Template | `<int>` |
+| Type | [Sequence Containers](https://en.cppreference.com/w/cpp/container#Sequence_containers) |
 
 # Evaluation
 **Score:** %
