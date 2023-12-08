@@ -128,3 +128,84 @@ This exercise required you to make a template function which finds the first occ
 This exercise requires you to make a class Span which can contain a list of integers.
 
 It can then find the shortest and longest spans between these integers.
+
+## Exercise 02 - Mutated abomination
+This exercise requires you to make an adjusted container MutantStack, inheriting from std::stack.<br>
+This container requires iterators to be added and should in this aspect function like std::list.
+
+<table>
+	<thead>
+		<tr>
+			<th colspan="5"><a href="https://en.cppreference.com/w/cpp/container#Member_function_table">Member function table</a></th>
+		</tr>
+		<tr>
+			<th>Member Type</th>
+			<th>Member Function</th>
+			<th><a href="https://en.cppreference.com/w/cpp/header/list">std::list</a></th>
+			<th><a href="https://en.cppreference.com/w/cpp/header/stack">std::stack</a></th>
+			<th><a href="ex02/MutantStack.hpp#L19">MutantStack</a></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td rowspan="4">Iterators</td>
+			<td>begin</td>
+			<td>begin</td>
+			<td></td>
+			<td><a href="ex02/MutantStack.hpp#L33">begin</a></td>
+		</tr>
+  		<tr>
+			<td>end</td>
+			<td>end</td>
+			<td></td>
+			<td><a href="ex02/MutantStack.hpp#L36">end</a></td>
+		</tr>
+  		<tr>
+			<td>rbegin</td>
+			<td>rbegin</td>
+			<td></td>
+			<td><a href="ex02/MutantStack.hpp#L34">rbegin</a></td>
+		</tr>
+  		<tr>
+			<td>rend</td>
+			<td>rend</td>
+			<td></td>
+			<td><a href="ex02/MutantStack.hpp#L37">rend</a></td>
+		</tr>
+		<tr>
+			<td rowspan="5">Element access</td>
+			<td>at</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+  		<tr>
+			<td>operator[]</td>
+			<td></td>
+			<td></td>
+			<td><a href="ex02/MutantStack.hpp#L44">operator[]</a></td>
+		</tr>
+  		<tr>
+			<td>front</td>
+			<td>front</td>
+			<td></td>
+			<td></td>
+		</tr>
+  		<tr>
+			<td rowspan="2">back</td>
+			<td rowspan="2">back</td>
+			<td rowspan="2">top</td>
+			<td><a href="ex02/MutantStack.hpp#L35">back</a></td>
+		</tr>
+		<tr>
+			<td>top</td>
+		</tr>
+  		<tr>
+			<td rowspan="1">Misc</td>
+   			<td>push_back</td>
+      			<td>push_back</td>
+      			<td>push</td>	
+      			<td>push</td>	
+		</tr>
+	</tbody>
+</table>
