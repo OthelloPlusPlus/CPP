@@ -1,6 +1,14 @@
 # Intro
 > Templated containers, iterators, algorithms
 
+# Table of Contents
+- Excersises
+  - [Exercise 00](#exercise-00---easy-find)
+  - [Exercise 01](#exercise-01---span)
+  - [Exercise 02](#exercise-02---mutated-abomination)
+- [Evaluation](#evaluation)
+- [Creator](#creator)
+
 [Containers](https://en.cppreference.com/w/cpp/container) are objects that store and manage collections of elements. They provide a way to organize and manipulate data in a structured manner. Containers are part of the C++ Standard Template Library (STL) and are implemented as templates, allowing them to work with different data types.
 
 There are two main categories of containers in the STL: [Sequence containers](https://en.cppreference.com/w/cpp/container#Sequence_containers) and [Associative containers](https://en.cppreference.com/w/cpp/container#Associative_containers).
@@ -155,3 +163,16 @@ After the addition of iterators and [associated member functions](ex02/MutantSta
 		</tr>
 	</tbody>
 </table>
+
+# Evaluation
+**Score:** %
+> ""
+> 		- 
+
+**Score:** %
+> ""
+> 		- 
+# Creator
+Othello<br>
+[<img alt="LinkedIn" height="32px" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" target="_blank" />](https://github.com/OthelloPlusPlus)
+[<img alt="LinkedIn" height="32px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/600px-LinkedIn_logo_initials.png" target="_blank" />](https://nl.linkedin.com/in/orlando-hengelmolen)
