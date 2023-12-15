@@ -36,8 +36,8 @@ $(OBJ_DIR)%.o: ../*/%.cpp
 
 -include $(DEP)
 
-subject: all
-	./$(NAME)
+subject:
+	@echo	"Unavailable: Use ./test.sh"
 
 clean:
 	@rm -f $(OBJ) $(DEP)
