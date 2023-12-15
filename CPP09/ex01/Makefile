@@ -10,8 +10,8 @@ INCL_HDR :=	$(shell find .. -type f -name '*.hpp' -exec dirname "{}" \; | \
 
 SRC =	$(SRC_MAIN) $(SRC_CLASS) $(SRC_FUNC)
 SRC_MAIN =	main.cpp
-SRC_CLASS =	RPN.cpp
-SRC_FUNC =	
+SRC_CLASS =	
+SRC_FUNC =	RPN.cpp
 
 DIRS =	$(OBJ_DIR) $(DEP_DIR)
 OBJ_DIR =	obj/
@@ -36,8 +36,8 @@ $(OBJ_DIR)%.o: ../*/%.cpp
 
 -include $(DEP)
 
-subject: all
-	./$(NAME)
+subject:
+	@echo	"Unavailable: Use ./test.sh"
 
 clean:
 	@rm -f $(OBJ) $(DEP)

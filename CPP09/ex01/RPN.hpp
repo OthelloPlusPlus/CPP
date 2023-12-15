@@ -13,18 +13,12 @@
 #ifndef RPN_HPP
 # define RPN_HPP
 
-class RPN
+#include <string>
+// std::string
+
+namespace RPN
 {
-	private:
-
-	protected:
-
-	public:
-		RPN(void);
-		RPN(const RPN &src);
-		~RPN(void);
-
-		RPN	&operator=(const RPN &src);
-};
+	double	calculate(std::string input);
+} // namespace RPN
 
 #endif

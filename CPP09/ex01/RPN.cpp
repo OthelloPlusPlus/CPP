@@ -11,65 +11,97 @@
 /* ************************************************************************** */
 
 #include "RPN.hpp"
-#include "colors.hpp"
 
-#include <iostream>
-// std::
+#include <stack>
+// std::stack
+#include <cmath>
+// std::floor()
+// std::pow()
+#include <stdexcept>
+// std::exception
+#include <string>
+// std::string
 
-/** ************************************************************************ **\
- * 
- * 	Constructors
- * 
-\* ************************************************************************** */
-
-RPN::RPN(void)
+namespace
 {
-	std::cout	<< C_DGREEN	<< "Default constructor "
-				<< C_GREEN	<< "RPN"
-				<< C_DGREEN	<< " called."
-				<< C_RESET	<< std::endl;
+
+	void executeOperation(std::stack<double> &value, std::string &operation)
+	{
+		if (value.size() < 2)
+			throw (std::underflow_error("Not enough numeric arguments"));
+		double	carry = value.top();
+		value.pop();
+		switch (operation[0])
+		{
+			case '+':	value.top() += carry;	break ;
+			case '-':	value.top() -= carry;	break ;
+			case '/':	value.top() /= carry;	break ;
+			case '*':	value.top() *= carry;	break ;
+			case '%':	value.top() /= carry;
+						value.top() = (value.top() - std::floor(value.top())) * carry;
+						break ;
+			case '^':	value.top() = std::pow(value.top(), carry);	break ;
+			default:	throw(std::invalid_argument("Invalid operator: " + operation));
+		}
+	}
+
+	double	stodWrapper(std::string &current)
+	{
+#if __cplusplus >= 201103L
+		return (std::stod(current));
+#else
+		double 	value(0);
+		double	decimal(0);
+
+		size_t	period = current.find_first_of('.');
+		if (current.find_first_not_of("1234567890.") != std::string::npos ||\
+			current.find_first_not_of("1234567890", period + 1) != std::string::npos)
+			throw (std::invalid_argument("Invalid argument: " + current));
+
+		if (period != std::string::npos)
+			for (size_t i = current.size() - 1; i > period; --i)
+			{
+				decimal += current[i] - '0';
+				decimal /= 10;
+			}
+		else
+			period = current.size();
+		for (size_t i = 0; i < period; ++i)
+		{
+			value *= 10;
+			value += current[i] - '0';
+		}
+		return (value + decimal);
+#endif
+	}
 }
 
-RPN::RPN(const RPN &src)
+double	RPN::calculate(std::string input)
 {
-	*this = src;
-	std::cout	<< C_DGREEN	<< "Copy constructor "
-				<< C_GREEN	<< "RPN"
-				<< C_DGREEN	<< " called."
-				<< C_RESET	<< std::endl;
-}
+	std::stack<double>	value;
 
-/** ************************************************************************ **\
- * 
- * 	Deconstructors
- * 
-\* ************************************************************************** */
+	if (input.empty())
+		return (0);
+	while (!input.empty())
+	{
+		size_t		start = input.find_first_not_of(' ');
+		size_t		end = input.find_first_of(' ', start);
+		if (start == std::string::npos)
+			break ;
+		std::string	current = input.substr(start, end - start);
 
-RPN::~RPN(void)
-{
-	std::cout	<< C_RED	<< "Deconstructor "
-				<< C_RED	<< "RPN"
-				<< C_DRED	<< " called"
-				<< C_RESET	<< std::endl;
-}
+		if (current.find_first_not_of("1234567890.") == std::string::npos)
+			value.push(::stodWrapper(current));
+		else if (current.size() == 1)
+			::executeOperation(value, current);
+		else
+			throw (std::invalid_argument("Invalid argument: " + current));
 
-/** ************************************************************************ **\
- * 
- * 	Member Functions
- * 
-\* ************************************************************************** */
-
-
-/** ************************************************************************ **\
- * 
- * 	Operators
- * 
-\* ************************************************************************** */
-
-RPN	&RPN::operator=(const RPN &src)
-{
-	if (this == &src)
-		return (*this);
-
-	return (*this);
+		input.erase(start, end - start + 1);
+		if (end == std::string::npos)
+			break ;
+	}
+	if (value.size() != 1)
+		throw (std::overflow_error("Too many numeric arguments"));
+	return (value.top());
 }
