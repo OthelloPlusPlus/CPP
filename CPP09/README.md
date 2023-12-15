@@ -20,6 +20,8 @@ Within the STL there are [several containers](https://en.cppreference.com/w/cpp/
 ## Exercise 02 - PmergeMe
 - Chosen containers: [std::vector](https://en.cppreference.com/w/cpp/container/vector) & [std::deque](https://en.cppreference.com/w/cpp/container/deque) & [std::list](https://en.cppreference.com/w/cpp/container/list) (Sequence Containers)
 
+https://en.wikipedia.org/wiki/Merge-insertion_sort
+
 # Evaluation
 **Score:** %
 > ""
