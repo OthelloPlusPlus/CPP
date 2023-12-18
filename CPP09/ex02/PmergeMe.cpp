@@ -20,6 +20,8 @@
 #include <cstdlib>
 // std::atoi()
 // std::rand()
+#include <algorithm>
+// std::upper_bound()
 
 /** ************************************************************************ **\
  * 
@@ -104,17 +106,10 @@ void PmergeMe::sort(void)
 template <typename CONTAINER>
 CONTAINER	&PmergeMe::merge(CONTAINER &first, CONTAINER &second) const
 {
-	for (typename CONTAINER::iterator i = first.begin(); i != first.end(); ++i)
+	for (typename CONTAINER::iterator pos = first.begin(); !second.empty();)
 	{
-		while (!second.empty() && *i >= second.front())
-		{
-			i = first.insert(i, second.front());
-			second.erase(second.begin());
-		}
-	}
-	while (!second.empty())
-	{
-		first.push_back(second.front());
+		pos = std::upper_bound(pos, first.end(), second.front());
+		pos = first.insert(pos, second.front());
 		second.erase(second.begin());
 	}
 	return (first);
