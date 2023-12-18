@@ -18,6 +18,7 @@
 #include <iostream>
 //std::ostream
 #include <cstdlib>
+// std::atoi()
 // std::rand()
 
 /** ************************************************************************ **\
@@ -30,10 +31,7 @@ PmergeMe::PmergeMe(int argc, char **argv)
 {
 	for (int i = 1; i < argc; ++i)
 	{
-		int	value = std::stoi(argv[i]);
-		if (value < 0)
-			throw(std::range_error("Negative number"));
-
+		int	value = this->convertToInt(argv[i]);
 		this->vector.push_back(value);
 		this->deque.push_back(value);
 		this->list.push_back(value);
@@ -80,7 +78,7 @@ template void PmergeMe::sort<std::list<size_t> >();
 template <typename CONTAINER>
 void PmergeMe::sort(void)
 {
-	CONTAINER	&container = this->retrieveContainer(CONTAINER());
+	CONTAINER	&container = this->getContainer(CONTAINER());
 	if (container.size() <= 1)
 		return ;
 	size_t		split = (container.size() + 1) / 2 + ((container.size() + 1) / 2) % 2;
@@ -104,7 +102,7 @@ void PmergeMe::sort(void)
 }
 
 template <typename CONTAINER>
-CONTAINER	&PmergeMe::merge(CONTAINER &first, CONTAINER &second)
+CONTAINER	&PmergeMe::merge(CONTAINER &first, CONTAINER &second) const
 {
 	for (typename CONTAINER::iterator i = first.begin(); i != first.end(); ++i)
 	{
@@ -138,6 +136,22 @@ std::ostream	&PmergeMe::printRandom(std::ostream &out, const CONTAINER &containe
 	return (out);
 }
 
+int	PmergeMe::convertToInt(const char *arg) const
+{
+	std::string	validate(arg);
+	int	value;
+
+	if (validate.empty())
+		throw (std::invalid_argument("Empty argument passed"));
+	if (validate.find_first_of("1234567890") == std::string::npos ||\
+		validate.find_first_not_of("1234567890-+") != std::string::npos)
+		throw (std::invalid_argument("Invalid number passed: " + validate));
+	value = std::atoi(arg);
+	if (value < 0)
+		throw (std::invalid_argument("Negative number passed: " + validate));
+	return (value);
+}
+
 /** ************************************************************************ **\
  * 
  * 	Operators
@@ -148,7 +162,9 @@ PmergeMe	&PmergeMe::operator=(const PmergeMe &src)
 {
 	if (this == &src)
 		return (*this);
-
+	this->vector = src.vector;
+	this->deque = src.deque;
+	this->list = src.list;
 	return (*this);
 }
 
@@ -156,9 +172,9 @@ std::ostream	&operator<<(std::ostream &out, PmergeMe &src)
 {
 	switch (std::rand() % 3)
 	{
-		case 0:	return (src.printRandom(out, src.getList(std::vector<size_t>())));
-		case 1:	return (src.printRandom(out, src.getList(std::list<size_t>())));
-		case 2:	return (src.printRandom(out, src.getList(std::deque<size_t>())));
+		case 0:	return (src.printRandom(out, src.getConstContainer(std::vector<size_t>())));
+		case 1:	return (src.printRandom(out, src.getConstContainer(std::list<size_t>())));
+		case 2:	return (src.printRandom(out, src.getConstContainer(std::deque<size_t>())));
 		default:	return (out	<< "Error");
 	}
 	return (out);

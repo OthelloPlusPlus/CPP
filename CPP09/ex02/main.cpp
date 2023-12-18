@@ -6,7 +6,7 @@
 /*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 19:21:41 by ohengelm          #+#    #+#             */
-/*   Updated: 2023/12/15 21:02:29 by ohengelm         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:30:29 by ohengelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,35 @@
 #include <ctime>
 // std::time()
 
-double	calculateTime(timespec &before, timespec &after);
-
+PmergeMe	fillPmerge(int argc, char **argv, double &time);
 template <typename CONTAINER>
 	double	timedSort(PmergeMe &merge);
-	template double	timedSort<std::vector<size_t> >(PmergeMe &merge);
-	template double	timedSort<std::deque<size_t> >(PmergeMe &merge);
-	template double	timedSort<std::list<size_t> >(PmergeMe &merge);
+double		calculateTime(timespec &before, timespec &after);
 template <typename CONTAINER>
 	void	printTime(CONTAINER &container, double time, std::string type);
 
 int	main(int argc, char **argv)
 {
+#if __cplusplus >= 201103L
 	print::subHeaderLine("Testing size: " + std::to_string(argc - 1));
+#else
+	print::subHeaderLine("Testing string:");
+#endif
 	try
 	{
-		PmergeMe		merge(argc, argv);
-		double			diff[3];
+		double		diff[4];
+		PmergeMe	merge = fillPmerge(argc, argv, diff[0]);
 
 		std::srand(std::time(NULL));
 		std::cout	<< std::setw(8)<< "Before:"	<< merge	<< std::endl;
-		diff[0] = timedSort<std::vector<size_t> >(merge);
-		diff[1] = timedSort<std::deque<size_t> >(merge);
-		diff[2] = timedSort<std::list<size_t> >(merge);
+		diff[1] = timedSort<std::vector<size_t> >(merge);
+		diff[2] = timedSort<std::deque<size_t> >(merge);
+		diff[3] = timedSort<std::list<size_t> >(merge);
 		std::cout	<< std::setw(8)<< "After:"	<< merge	<< '\n'	<< std::endl;
 
-		printTime(merge.getList(std::vector<size_t>()), diff[0], "std::vector<>");
-		printTime(merge.getList(std::deque<size_t>()), diff[1], "std::deque<>");
-		printTime(merge.getList(std::list<size_t>()), diff[2], "std::list<>");
+		printTime(merge.getConstContainer(std::vector<size_t>()), diff[0] + diff[1], "std::vector<>");
+		printTime(merge.getConstContainer(std::deque<size_t>()), diff[0] + diff[2], "std::deque<>");
+		printTime(merge.getConstContainer(std::list<size_t>()), diff[0] + diff[3], "std::list<>");
 	}
 	catch(const std::exception &e)
 	{
@@ -55,7 +56,18 @@ int	main(int argc, char **argv)
 					<< std::endl;
 		return (1);
 	}
-	return (errno);
+	return (0);
+}
+
+PmergeMe	fillPmerge(int argc, char **argv, double &time)
+{
+	timespec	currentTime[2];
+
+	clock_gettime(CLOCK_REALTIME, &currentTime[0]);
+	PmergeMe	merge(argc, argv);
+	clock_gettime(CLOCK_REALTIME, &currentTime[1]);
+	time = calculateTime(currentTime[0], currentTime[1]);
+	return (merge);
 }
 
 template <typename CONTAINER>

@@ -27,14 +27,15 @@ class PmergeMe
 {
 	private:
 		std::vector<size_t>	vector;
-		std::deque<size_t>		deque;
-		std::list<size_t>		list;
+		std::deque<size_t>	deque;
+		std::list<size_t>	list;
 
+		int	convertToInt(const char *arg) const;
 		template <typename CONTAINER>
-			CONTAINER	&merge(CONTAINER &first, CONTAINER &second);
-		std::vector<size_t>	&retrieveContainer(std::vector<size_t>) {return (this->vector);}
-		std::deque<size_t>		&retrieveContainer(std::deque<size_t>) {return (this->deque);}
-		std::list<size_t>		&retrieveContainer(std::list<size_t>) {return (this->list);}
+			CONTAINER	&merge(CONTAINER &first, CONTAINER &second) const;
+		std::vector<size_t>	&getContainer(std::vector<size_t>) {return (this->vector);}
+		std::deque<size_t>	&getContainer(std::deque<size_t>) {return (this->deque);}
+		std::list<size_t>	&getContainer(std::list<size_t>) {return (this->list);}
 
 	protected:
 
@@ -45,9 +46,9 @@ class PmergeMe
 
 		template <typename CONTAINER>
 			void	sort(void);
-		const std::vector<size_t>	&getList(std::vector<size_t>) const {return (this->vector);}
-		const std::deque<size_t>	&getList(std::deque<size_t>) const {return (this->deque);}
-		const std::list<size_t>	&getList(std::list<size_t>) const {return (this->list);}
+		const std::vector<size_t>	&getConstContainer(std::vector<size_t>) const {return (this->vector);}
+		const std::deque<size_t>	&getConstContainer(std::deque<size_t>) const {return (this->deque);}
+		const std::list<size_t>		&getConstContainer(std::list<size_t>) const {return (this->list);}
 		template <typename CONTAINER>
 			std::ostream	&printRandom(std::ostream &out, const CONTAINER &container);
 

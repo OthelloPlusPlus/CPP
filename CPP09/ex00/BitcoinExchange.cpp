@@ -6,7 +6,7 @@
 /*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 19:19:37 by ohengelm          #+#    #+#             */
-/*   Updated: 2023/12/15 15:23:30 by ohengelm         ###   ########.fr       */
+/*   Updated: 2023/12/18 12:42:54 by ohengelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ struct BitcoinExchangeInit
 		}
 		catch(const std::exception &e)
 		{
-			std::cerr	<< C_RED	<< "Error: "
+			std::cerr	<< C_RED	<< "Errors: "
 						<< C_RESET	<< e.what()
 						<< std::endl;
 			exit(1);
@@ -58,7 +58,7 @@ namespace
 {
 	double	stringToNum(const std::string &string)
 	{
-		double	value = 0;
+		double	value(0);
 
 		size_t i = 0;
 		if (string[0] == '-' || string[0] == '+')
