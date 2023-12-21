@@ -127,7 +127,7 @@ This exercise requires you to sort a string of numbers using the the [Ford–Joh
 		</tr>
 		<tr>
 			<td>4</td>
-			<td>Define the <a= href="#jacobsthal-sequence">order of insertion</a> for the least comparisons</td>
+			<td>Define the <a href="#jacobsthal-sequence">order of insertion</a> for the least comparisons</td>
 			<td>[3 6 7 8 9]<br>[1 4 5 0 2]</td>
 			<td><br>[0 1 3 2 4]</td>
 			<td>[10]</td>
