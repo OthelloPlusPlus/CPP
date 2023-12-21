@@ -106,7 +106,7 @@ This exercise requires you to sort a string of numbers using the the [Ford–Joh
 		</tr>
 		<tr>
 			<td>1.b</td>
-			<td>Split the array pairs</td>
+			<td>Split the array into pairs</td>
 			<td>[1 5 9 4 8]<br>[3 7 2 6 0]</td>
 			<td></td>
 			<td>[10]</td>
