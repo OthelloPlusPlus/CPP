@@ -13,48 +13,43 @@
 #ifndef PMERGEME_HPP
 # define PMERGEME_HPP
 
-#include <vector>
-// std::vector
-#include <deque>
-// std::deque
-#include <list>
-// std::list
-
 #include <iostream>
 //std::ostream
 
+template <typename CONTAINER>
 class PmergeMe
 {
 	private:
-		std::vector<size_t>	vector;
-		std::deque<size_t>	deque;
-		std::list<size_t>	list;
+		CONTAINER	container;
+		CONTAINER	low;
 
-		int	convertToInt(const char *arg) const;
-		template <typename CONTAINER>
-			CONTAINER	&merge(CONTAINER &first, CONTAINER &second) const;
-		std::vector<size_t>	&getContainer(std::vector<size_t>) {return (this->vector);}
-		std::deque<size_t>	&getContainer(std::deque<size_t>) {return (this->deque);}
-		std::list<size_t>	&getContainer(std::list<size_t>) {return (this->list);}
+		int		convertToInt(const char *arg) const;
+		int		extractDangler(void);
+		void	splitContainer(void);
+		void	largestOnTop(void);
+		void	sortHighAscending(void);
+		void	priorityInsert(void);
+
+		void	printContents(void);
 
 	protected:
 
 	public:
-		PmergeMe(int argc, char **argv);
+		PmergeMe(void);
 		PmergeMe(const PmergeMe &src);
 		~PmergeMe(void);
 
-		template <typename CONTAINER>
-			void	sort(void);
-		const std::vector<size_t>	&getConstContainer(std::vector<size_t>) const {return (this->vector);}
-		const std::deque<size_t>	&getConstContainer(std::deque<size_t>) const {return (this->deque);}
-		const std::list<size_t>		&getConstContainer(std::list<size_t>) const {return (this->list);}
-		template <typename CONTAINER>
-			std::ostream	&printRandom(std::ostream &out, const CONTAINER &container);
+		void	sort(int argc, char **argv);
+		void	parseInput(int argc, char **argv);
+
+		const CONTAINER &getContainer(void) const {return (this->container);}
 
 		PmergeMe	&operator=(const PmergeMe &src);
 };
 
-std::ostream	&operator<<(std::ostream &out, PmergeMe &src);
+template <typename CONTAINER>
+std::ostream	&operator<<(std::ostream &out, PmergeMe<CONTAINER> &src);
+
+#include "PmergeMe.tpp"
 
 #endif

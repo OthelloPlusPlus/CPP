@@ -6,7 +6,7 @@
 /*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 19:21:41 by ohengelm          #+#    #+#             */
-/*   Updated: 2023/12/18 13:30:29 by ohengelm         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:47:56 by ohengelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,33 @@
 #include "print.hpp"
 #include "colors.hpp"
 
+#include <vector>
+// std::vector
+#include <deque>
+// std::deque
+#include <list>
+// std::list
 #include <cstdlib>
 // std::srand()
 #include <ctime>
 // std::time()
 
-PmergeMe	fillPmerge(int argc, char **argv, double &time);
+static void	printBefore(int argc, char **argv);
+static void	printRandom(const char *string, \
+						PmergeMe<std::vector<size_t> > &vector, \
+						PmergeMe<std::deque<size_t> > &deque, \
+						PmergeMe<std::list<size_t> > &list);
 template <typename CONTAINER>
-	double	timedSort(PmergeMe &merge);
-double		calculateTime(timespec &before, timespec &after);
-template <typename CONTAINER>
-	void	printTime(CONTAINER &container, double time, std::string type);
+	static void	timedSort(CONTAINER &container, int argc, char **argv, const char *type);
+static double		calculateTime(timespec &before, timespec &after);
+static void			printTime(int size, double time, std::string type);
 
+/** ************************************************************************ **\
+ * 
+ * 	Main
+ * 
+\* ************************************************************************** */
+#include <stack>
 int	main(int argc, char **argv)
 {
 #if __cplusplus >= 201103L
@@ -35,19 +50,19 @@ int	main(int argc, char **argv)
 #endif
 	try
 	{
-		double		diff[4];
-		PmergeMe	merge = fillPmerge(argc, argv, diff[0]);
+		PmergeMe<std::vector<size_t> >	vector;
+		PmergeMe<std::deque<size_t> >	deque;
+		PmergeMe<std::list<size_t> >	list;
 
-		std::srand(std::time(NULL));
-		std::cout	<< std::setw(8)<< "Before:"	<< merge	<< std::endl;
-		diff[1] = timedSort<std::vector<size_t> >(merge);
-		diff[2] = timedSort<std::deque<size_t> >(merge);
-		diff[3] = timedSort<std::list<size_t> >(merge);
-		std::cout	<< std::setw(8)<< "After:"	<< merge	<< '\n'	<< std::endl;
+		timespec	seed;
+		clock_gettime(CLOCK_REALTIME, &seed);
+		std::srand(seed.tv_nsec);
 
-		printTime(merge.getConstContainer(std::vector<size_t>()), diff[0] + diff[1], "std::vector<>");
-		printTime(merge.getConstContainer(std::deque<size_t>()), diff[0] + diff[2], "std::deque<>");
-		printTime(merge.getConstContainer(std::list<size_t>()), diff[0] + diff[3], "std::list<>");
+		printBefore(argc, argv);
+		timedSort(vector, argc, argv, "std::vector");
+		timedSort(deque, argc, argv, "std::deque");
+		timedSort(list, argc, argv, "std::list");
+		printRandom("After:", vector, deque, list);
 	}
 	catch(const std::exception &e)
 	{
@@ -59,29 +74,52 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-PmergeMe	fillPmerge(int argc, char **argv, double &time)
-{
-	timespec	currentTime[2];
+/** ************************************************************************ **\
+ * 
+ * 	Static Functions
+ * 
+\* ************************************************************************** */
 
-	clock_gettime(CLOCK_REALTIME, &currentTime[0]);
-	PmergeMe	merge(argc, argv);
-	clock_gettime(CLOCK_REALTIME, &currentTime[1]);
-	time = calculateTime(currentTime[0], currentTime[1]);
-	return (merge);
+static void	printBefore(int argc, char **argv)
+{
+	PmergeMe<std::vector<size_t> >	vector;
+	PmergeMe<std::deque<size_t> >	deque;
+	PmergeMe<std::list<size_t> >	list;
+
+	vector.parseInput(argc, argv);
+	deque.parseInput(argc, argv);
+	list.parseInput(argc, argv);
+	printRandom("Before:", vector, deque, list);
+}
+
+static void	printRandom(const char *string, \
+					PmergeMe<std::vector<size_t> > &vector, \
+					PmergeMe<std::deque<size_t> > &deque, \
+					PmergeMe<std::list<size_t> > &list)
+{
+	std::cout	<< std::setw(8)	<< string;
+	switch (std::rand() % 3)
+	{
+		case 0:	std::cout	<< vector	<< " (std::vector)";	break ;
+		case 1: std::cout	<< deque	<< " (std::deque)";	break ;
+		case 2:	std::cout	<< list		<< " (std::list)";	break ;
+		default:	std::cout	<< "Error";	break ;
+	}
+	std::cout	<< std::endl;
 }
 
 template <typename CONTAINER>
-double	timedSort(PmergeMe &merge)
+static void	timedSort(CONTAINER &container, int argc, char **argv, const char *type)
 {
 	timespec	currentTime[2];
 
 	clock_gettime(CLOCK_REALTIME, &currentTime[0]);
-	merge.sort<CONTAINER>();
+	container.sort(argc, argv);
 	clock_gettime(CLOCK_REALTIME, &currentTime[1]);
-	return (calculateTime(currentTime[0], currentTime[1]));
+	printTime(container.getContainer().size(), calculateTime(currentTime[0], currentTime[1]), type);
 }
 
-double	calculateTime(timespec &before, timespec &after)
+static double	calculateTime(timespec &before, timespec &after)
 {
 	double	diff(0);
 
@@ -92,15 +130,13 @@ double	calculateTime(timespec &before, timespec &after)
 	return (diff);
 }
 
-template <typename CONTAINER>
-	void	printTime(CONTAINER &container, double time, std::string type)
+static void	printTime(int size, double time, std::string type)
 {
 	std::cout	<< C_RESET	<< "Time to process a range of " 
-				<< C_ORANGE	<< container.size()
+				<< C_ORANGE	<< size
 				<< C_RESET	<<" elements with "
 				<< C_ORANGE	<< std::setw(14)	<< type
 				<< C_RESET	<< ": ";
-
 	std::string	unit(" us");
 	switch (static_cast<int>(time))
 	{
