@@ -54,8 +54,8 @@ This exercise requires you to create a program which calculates the current valu
 | Template | `<double>` |
 | Type | [Container Adeptor](https://en.cppreference.com/w/cpp/container#Container_adaptors) |
 
-There are three types of mathematical notation. The most commonly used is the [Infix Notation](https://en.wikipedia.org/wiki/Infix_notation). the less known ones are the [Prefix/Polish Notation](https://en.wikipedia.org/wiki/Polish_notation) and [Postfix/Reverse Polish Notation](https://en.wikipedia.org/wiki/Reverse_Polish_notation).
-This exercise requires you to use the Reverse Polish Notation, which is a faster, but less legible mathematical notation. All numbers and operations are placed in order of processing and therefor no '( )' are required. Each number passed is stored and when a mathematical operator is found it is used to process the top 2 numbers.
+There are three types of mathematical notation. The most commonly used is the [Infix Notation](https://en.wikipedia.org/wiki/Infix_notation). The less known ones are the [Prefix/Polish Notation](https://en.wikipedia.org/wiki/Polish_notation) and [Postfix/Reverse Polish Notation](https://en.wikipedia.org/wiki/Reverse_Polish_notation).
+This exercise requires you to use the Reverse Polish Notation, which is a faster, but less legible, mathematical notation. All numbers and operations are placed in order of processing and therefor no '( )' are required. Each number passed is stored and when a mathematical operator is found it is used to process the top 2 numbers.
 
 | Infix n | PN | RPN |
 | :--- | :--- | :--- |
