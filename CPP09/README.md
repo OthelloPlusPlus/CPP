@@ -170,7 +170,7 @@ The ordering is structured as such, without knowing what the sequence's values a
 An efficient ordering coincides with the Jacobsthal sequence. This is a sequence, starting with 0 and 1 that takes the 2 previous numbers, multiplies the first by 2 and adds the second.
 For example 21 43 ==> 21 * 2 + 43 ==> 85
 
-The Jacobsthal Sequence can be used the derive the order of the indexes. Where missing numbers are added, decrementally, after their first higher value (after 11 comes 10, 9, 8, 7 and 6).
+The [Jacobsthal Numbers](https://en.wikipedia.org/wiki/Jacobsthal_number) can be used the derive the order of the indexes. Where missing numbers are added, decrementally, after their first higher value (after 11 comes 10, 9, 8, 7 and 6).
 <table>
 	<thead style="background-color: #C0C0C0;">
 		<tr>
