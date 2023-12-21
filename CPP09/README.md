@@ -11,9 +11,10 @@ Within the STL there are [several containers](https://en.cppreference.com/w/cpp/
 - [Evaluation](#evaluation)
 - [Creator](#creator)
 
-## Exercise 00 - Bitcoin Exchange
-| Container | [std::map](https://en.cppreference.com/w/cpp/container/map) |
+## Exercise 00 - Bitcoin Exchange			
+|  |  |
 | :--- | :--- |
+| Container | [std::map](https://en.cppreference.com/w/cpp/container/map) |
 | Template | `<std::string, double>` |
 | Type | [Ordered Associative Container](https://en.cppreference.com/w/cpp/container#Associative_containers) |
 
@@ -47,10 +48,10 @@ This exercise requires you to create a program which calculates the current valu
   </tbody>
 </table>
 
-
 ## Exercise 01 - Reverse Polish Notation
-| Container | [std::stack](https://en.cppreference.com/w/cpp/container/stack) |
+|  |  |
 | :--- | :--- |
+| Container | [std::stack](https://en.cppreference.com/w/cpp/container/stack) |
 | Template | `<double>` |
 | Type | [Container Adeptor](https://en.cppreference.com/w/cpp/container#Container_adaptors) |
 
@@ -66,7 +67,7 @@ This exercise requires you to use the Reverse Polish Notation, which is a faster
 | -0.04 |  -0.04 | - 0.04 |
 
 ## Exercise 02 - PmergeMe
-|||
+|  |  |
 | :--- | :--- |
 | Containers | [std::vector](https://en.cppreference.com/w/cpp/container/vector) |
 || [std::deque](https://en.cppreference.com/w/cpp/container/deque) |
