@@ -92,49 +92,49 @@ This exercise requires you to sort a string of numbers using the the [Ford–Joh
 	</thead>
 	<tbody>
 		<tr>
-			<td>0</td>
+			<td><a href="ex02/PmergeMe.tpp#L77" target="_blank">0</a></td>
 			<td>Starting Array</td>
 			<td>[1 3 5 7 9 2 4 6 8 0 10]</td>
 			<td></td>
 			<td></td>
 		</tr>
 		<tr>
-			<td>1.a</td>
+			<td><a href="ex02/PmergeMe.tpp#L126" target="_blank">1.a</a></td>
 			<td>For an odd array, keep the remnant for later</td>
 			<td>[1 3 5 7 9 2 4 6 8 0]</td>
 			<td></td>
 			<td>[10]</td>
 		</tr>
 		<tr>
-			<td>1.b</td>
+			<td><a href="ex02/PmergeMe.tpp#L134" target="_blank">1.b</a></td>
 			<td>Split the array into pairs</td>
 			<td>[1 5 9 4 8]<br>[3 7 2 6 0]</td>
 			<td></td>
 			<td>[10]</td>
 		</tr>
 		<tr>
-			<td>2</td>
+			<td><a href="ex02/PmergeMe.tpp#L147" target="_blank">2</a></td>
 			<td>Put the larger component on top for each pair</td>
 			<td>[3 7 9 6 8]<br>[1 5 2 4 0]</td>
 			<td></td>
 			<td>[10]</td>
 		</tr>
 		<tr>
-			<td>3</td>
+			<td><a href="ex02/PmergeMe.tpp#L155" target="_blank">3</a></td>
 			<td>Sort the pairs ascending, based on the top value</td>
 			<td>[3 6 7 8 9]<br>[1 4 5 0 2]</td>
 			<td></td>
 			<td>[10]</td>
 		</tr>
 		<tr>
-			<td>4</td>
+			<td><a href="ex02/PmergeMe.tpp#L175" target="_blank">4</a></td>
 			<td>Define the <a href=".#jacobsthal-sequence">order of insertion</a> for the least comparisons</td>
 			<td>[3 6 7 8 9]<br>[1 4 5 0 2]</td>
 			<td><br>[0 1 3 2 4]</td>
 			<td>[10]</td>
 		</tr>
 		<tr>
-			<td rowspan="5">5</td>
+			<td rowspan="5"><a href="ex02/PmergeMe.tpp#L" target="_blank">5</a></td>
 			<td rowspan="5">Insert bottom sequence into top sequence<br> - Using ordering for next to number to merge<br> - Using Binary Search to position to insert</td>
 			<td>[1 3 6 7 8 9]<br>[- 4 5 0 2]</td>
 			<td><br>[- 1 3 2 4]</td>
@@ -168,10 +168,10 @@ This exercise requires you to sort a string of numbers using the the [Ford–Joh
 
 ### Jacobsthal Sequence
 The ordering is structured as such, without knowing what the sequence's values are, that the least amount of comparisons have to be made.
-An efficient ordering coincides with the Jacobsthal sequence. This is a sequence, starting with 0 and 1 that takes the 2 previous numbers, multiplies the first by 2 and adds the second.
+An efficient ordering coincides with the [Jacobsthal Numbers](https://en.wikipedia.org/wiki/Jacobsthal_number). This is a sequence, starting with 0 and 1 that takes the 2 previous numbers, multiplies the first by 2 and adds the second.
 For example 21 43 ==> 21 * 2 + 43 ==> 85
 
-The [Jacobsthal Numbers](https://en.wikipedia.org/wiki/Jacobsthal_number) can be used the derive the order of the indexes. Where missing numbers are added, decrementally, after their first higher value (after 11 comes 10, 9, 8, 7 and 6).
+The Jacobsthal Numbers can be used the derive the order of the indexes. Where missing numbers are added, decrementally, after their first higher value (after 11 comes 10, 9, 8, 7 and 6).
 <table>
 	<thead style="background-color: #C0C0C0;">
 		<tr>
