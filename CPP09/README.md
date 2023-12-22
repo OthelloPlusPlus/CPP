@@ -20,6 +20,7 @@ Within the STL there are [several containers](https://en.cppreference.com/w/cpp/
 
 This exercise requires you to create a program which calculates the current value of someones Bitcoin Portfolio. This does this using 2 files. One which contains the [history of Bitcoin value](ex00/file/data.csv) and one which contains the [persons Portfolio](ex00/file/input.txt). As an Ordered Associative Container [std::map](https://en.cppreference.com/w/cpp/container/map) is the most suitable for this. std::map can use the date as a key to store information, and its approach to sorted storing allows for easy retrieval of the correct current value of Bitcoin.
 
+### Execution
 <table>
 	<thead style="background-color: #C0C0C0;">
 		<tr><th colspan="3">Terminal Commands</th></tr>
@@ -31,7 +32,7 @@ This exercise requires you to create a program which calculates the current valu
 	</thead>
 	<tbody>
 		<tr>
-			<td><a href="ex00/Makefile" target="_blank">.make</a></td>
+			<td><a href="ex00/Makefile" target="_blank">make</a></td>
 			<td></td>
 			<td>Creates the binary 'btc'</td>
 		</tr>
@@ -55,16 +56,85 @@ This exercise requires you to create a program which calculates the current valu
 | Template | `<double>` |
 | Type | [Container Adeptor](https://en.cppreference.com/w/cpp/container#Container_adaptors) |
 
-There are three types of mathematical notation. The most commonly used is the [Infix Notation](https://en.wikipedia.org/wiki/Infix_notation). The less known ones are the [Prefix/Polish Notation](https://en.wikipedia.org/wiki/Polish_notation) and [Postfix/Reverse Polish Notation](https://en.wikipedia.org/wiki/Reverse_Polish_notation).
-This exercise requires you to use the Reverse Polish Notation, which is a faster, but less legible, mathematical notation. All numbers and operations are placed in order of processing and therefor no '( )' are required. Each number passed is stored and when a mathematical operator is found it is used to process the top 2 numbers.
+This exercise requires you to make a calculator for the which calculates the imput using the Reverse Polish Notation.
 
-| Infix n | PN | RPN |
-| :--- | :--- | :--- |
-| 1 / (2 - 3 * (4 + 5)) |  / 1 - 2 * 3 + 4 5 | 1 2 3 4 5 + * - / |
-| 1 / (2 - 3 * 9 ) |  / 1 - 2 * 3 9 | 1 2 3 9 * - / |
-| 1 / (2 - 27) |  / 1 - 2 * 27  | 1 2 27 - / |
-| 1 / -25 |  / 1 -25 | 1 -25 \ |
-| -0.04 |  -0.04 | - 0.04 |
+### Execution
+<table>
+	<thead style="background-color: #C0C0C0;">
+		<tr><th colspan="3">Terminal Commands</th></tr>
+		<tr>
+			<th>Command</th>
+			<th>Arguments</th>
+			<th>Functionality</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><a href="ex01/Makefile" target="_blank">make</a></td>
+			<td></td>
+			<td>Creates the binary 'RPN'</td>
+		</tr>
+		<tr>
+			<td>./RPN</td>
+			<td>[mathematical equation in Reverse Polish Notation]</td>
+			<td>Calculates passed mathematical equation using the Reverse Polish Notation. Each argument is considered an entire equation.</td>
+		</tr>
+		<tr>
+			<td><a href="ex01/test.sh" target="_blank">./test.sh</a></td>
+			<td></td>
+			<td>Runs the Makefile and then runs the binary with with input read from a series of files.</td>
+		</tr>
+  </tbody>
+</table>
+
+### Implementation
+There are three types of mathematical notation. The most commonly used is the [Infix Notation](https://en.wikipedia.org/wiki/Infix_notation). The less known ones are the [Prefix/Polish Notation](https://en.wikipedia.org/wiki/Polish_notation) and [Postfix/Reverse Polish Notation](https://en.wikipedia.org/wiki/Reverse_Polish_notation).
+Where Infix notation puts its mathematical operators between the numbers and has a priority system. The Polish Notations put the numbers and operators in order of calculation. Therefor no '( )' are required. These are faster, although less legible, methods.
+The Polish Notation is read from right to left, and it stores each number passed. Whenever a mahtemathical operator is found, it is used to process the top 2 numbers.
+The Reverse Polish Notation has the same method, but reads from left to right.
+
+<table>
+	<thead style="background-color: #C0C0C0;">
+		<tr>
+			<th colspan="21">Mathematical Notations</th>
+		<tr>
+			<th colspan="1">Infix</th>
+			<th></th>
+			<th colspan="9">PN</th>
+			<th></th>
+			<th colspan="9">RPN</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1 / (2 - 3 * (4 + 5))</td>
+			<td rowspan="5"></td>
+			<td>/</td><td>1</td><td>-</td><td>2</td><td>*</td><td>3</td><td>+</td><td>4</td><td>5</td>
+			<td rowspan="5"></td>
+			<td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>+</td><td>*</td><td>-</td><td>/</td>
+		</tr>
+		<tr>
+			<td>1 / (2 - 3 * 9)</td>
+			<td>/</td><td>1</td><td>-</td><td>2</td><td>*</td><td>3</td><td colspan="3">9</td>
+			<td>1</td><td>2</td><td>3</td><td colspan="3">9</td><td>*</td><td>-</td><td>/</td>
+		</tr>
+		<tr>
+			<td>1 / (2 - 27)</td>
+			<td>/</td><td>1</td><td>-</td><td>2</td><td colspan="5">27</td>
+			<td>1</td><td>2</td><td colspan="5">27</td><td>-</td><td>/</td>
+		</tr>
+		<tr>
+			<td>1 / -25</td>
+			<td>/</td><td>1</td><td colspan="7">-25</td>
+			<td>1</td><td colspan="7">-25</td><td>/</td>
+		</tr>
+		<tr>
+			<td>-0.04</td>
+			<td colspan="9">-0.04</td>
+			<td colspan="9">-0.04</td>
+		</tr>
+	</tbody>
+</table>
 
 ## Exercise 02 - PmergeMe
 |  |  |
@@ -72,11 +142,41 @@ This exercise requires you to use the Reverse Polish Notation, which is a faster
 | Containers | [std::vector](https://en.cppreference.com/w/cpp/container/vector) |
 || [std::deque](https://en.cppreference.com/w/cpp/container/deque) |
 || [std::list](https://en.cppreference.com/w/cpp/container/list) |
-| Template | `<int>` |
+| Template | `<size_t>` |
 | Type | [Sequence Containers](https://en.cppreference.com/w/cpp/container#Sequence_containers) |
 
 This exercise requires you to sort a string of numbers using the the [Ford–Johnson algorithm](https://en.wikipedia.org/wiki/Merge-insertion_sort). Sorting in this method is a relatively slow method, however it greatly reduces the amount of comparisons requires. In situations where a comparison is slow (i.e. human execution) this becomes a fast implementation.
 
+### Execution
+<table>
+	<thead style="background-color: #C0C0C0;">
+		<tr><th colspan="3">Terminal Commands</th></tr>
+		<tr>
+			<th>Command</th>
+			<th>Arguments</th>
+			<th>Functionality</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><a href="ex02/Makefile" target="_blank">make</a></td>
+			<td></td>
+			<td>Creates the binary 'PmergeMe'</td>
+		</tr>
+		<tr>
+			<td>./PmergeMe</td>
+			<td>[series of numbers to be sorted]</td>
+			<td>Sorts the passed numbers. Each passed argument is expected to be a single non-negativer integer.</td>
+		</tr>
+		<tr>
+			<td><a href="ex02/test.sh" target="_blank">./test.sh</a></td>
+			<td></td>
+			<td>Runs the Makefile and then runs the binary with a series of both hardcodes as randomised tests.</td>
+		</tr>
+  </tbody>
+</table>
+
+### Implementation
 <table>
 	<thead style="background-color: #C0C0C0;">
 		<tr>
@@ -157,7 +257,7 @@ This exercise requires you to sort a string of numbers using the the [Ford–Joh
 			<td></td>
 		</tr>
 		<tr>
-			<td>6</td>
+			<td><a href="ex02/PmergeMe.tpp#L91" target="_blank">6</a></td>
 			<td>Add the remnant</td>
 			<td>[0 1 2 3 4 5 6 7 8 9 10]</td>
 			<td></td>
