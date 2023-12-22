@@ -6,7 +6,7 @@
 /*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 19:21:41 by ohengelm          #+#    #+#             */
-/*   Updated: 2023/12/21 16:47:56 by ohengelm         ###   ########.fr       */
+/*   Updated: 2023/12/22 19:19:08 by ohengelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void			printTime(int size, double time, std::string type);
  * 	Main
  * 
 \* ************************************************************************** */
-#include <stack>
+
 int	main(int argc, char **argv)
 {
 #if __cplusplus >= 201103L
