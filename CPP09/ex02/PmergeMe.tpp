@@ -6,7 +6,7 @@
 /*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 19:20:43 by ohengelm          #+#    #+#             */
-/*   Updated: 2023/12/21 16:50:38 by ohengelm         ###   ########.fr       */
+/*   Updated: 2023/12/22 19:54:57 by ohengelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ int	PmergeMe<CONTAINER>::convertToInt(const char *arg) const
 template <typename CONTAINER>
 int	PmergeMe<CONTAINER>::extractDangler(void)
 {
-	int	danlger = this->container.back();
+	int	dangler = this->container.back();
 	this->container.erase(--this->container.end());
-	return (danlger);
+	return (dangler);
 }
 
 template <typename CONTAINER>
@@ -150,6 +150,9 @@ void	PmergeMe<CONTAINER>::largestOnTop(void)
 		if (*i < *j)
 			std::swap(*i, *j);
 }
+
+// https://www.youtube.com/watch?v=wqibJMG42Ik&t=283s
+// https://github.com/MyNameIsTrez/cpp/blob/master/09/ex02/PmergeMe.py
 
 template <typename CONTAINER>
 void	PmergeMe<CONTAINER>::sortHighAscending(void)
@@ -180,7 +183,7 @@ void	PmergeMe<CONTAINER>::priorityInsert(void)
 
 	upper = this->low.begin();
 	lower = upper;
-	this->container.insert(std::upper_bound(this->container.begin(), this->container.end(), *upper), *upper);
+	this->container.insert(this->container.begin(), *upper);
 	for (size_t i = 1; i < this->low.size();)
 	{
 		for (typename CONTAINER::const_iterator pos = upper; pos != lower; --pos)
