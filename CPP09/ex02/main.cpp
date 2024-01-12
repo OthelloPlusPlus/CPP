@@ -1,45 +1,17 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/08 19:21:41 by ohengelm          #+#    #+#             */
-/*   Updated: 2023/12/22 19:19:08 by ohengelm         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "PmergeMe.hpp"
-#include "print.hpp"
 #include "colors.hpp"
+#include "print.hpp"
 
-#include <vector>
-// std::vector
-#include <deque>
-// std::deque
-#include <list>
-// std::list
 #include <cstdlib>
-// std::srand()
+// std::rand()
 #include <ctime>
 // std::time()
 
-static void	printBefore(int argc, char **argv);
-static void	printRandom(const char *string, \
-						PmergeMe<std::vector<size_t> > &vector, \
-						PmergeMe<std::deque<size_t> > &deque, \
-						PmergeMe<std::list<size_t> > &list);
-template <typename CONTAINER>
-	static void	timedSort(CONTAINER &container, int argc, char **argv, const char *type);
-static double		calculateTime(timespec &before, timespec &after);
-static void			printTime(int size, double time, std::string type);
-
-/** ************************************************************************ **\
- * 
- * 	Main
- * 
-\* ************************************************************************** */
+void			printBefore(int argc, char **argv);
+template <template <typename...> class CONTAINER>
+	CONTAINER<int>	timedSort(int argc, char **argv, const char *type);
+void			printRandom(std::string string, std::vector<int> &vector, std::deque<int> &deque, std::list<int> &list);
+static double	calculateTime(timespec &before, timespec &after);
 
 int	main(int argc, char **argv)
 {
@@ -48,96 +20,51 @@ int	main(int argc, char **argv)
 #else
 	print::subHeaderLine("Testing string:");
 #endif
+	std::vector<int>	vector;
+	std::deque<int>		deque;
+	std::list<int>		list;
 	try
 	{
-		PmergeMe<std::vector<size_t> >	vector;
-		PmergeMe<std::deque<size_t> >	deque;
-		PmergeMe<std::list<size_t> >	list;
-
-		timespec	seed;
-		clock_gettime(CLOCK_REALTIME, &seed);
-		std::srand(seed.tv_nsec);
-
+		std::srand(time(NULL));
 		printBefore(argc, argv);
-		timedSort(vector, argc, argv, "std::vector");
-		timedSort(deque, argc, argv, "std::deque");
-		timedSort(list, argc, argv, "std::list");
-		printRandom("After:", vector, deque, list);
+		vector = timedSort<std::vector>(argc, argv, "<std::vector>");
+		deque = timedSort<std::deque>(argc, argv, "<std::deque>");
+		list = timedSort<std::list>(argc, argv, "<std::list>");
+		printRandom("After ", vector, deque, list);
 	}
-	catch(const std::exception &e)
+	catch(const std::exception& e)
 	{
 		std::cerr	<< C_RED	<< "Error: "
 					<< C_RESET	<< e.what()
 					<< std::endl;
-		return (1);
 	}
-	return (0);
 }
 
-/** ************************************************************************ **\
- * 
- * 	Static Functions
- * 
-\* ************************************************************************** */
-
-static void	printBefore(int argc, char **argv)
+void	printBefore(int argc, char **argv)
 {
-	PmergeMe<std::vector<size_t> >	vector;
-	PmergeMe<std::deque<size_t> >	deque;
-	PmergeMe<std::list<size_t> >	list;
+	std::vector<int>	vector = PmergeMe::unsorted<std::vector>(argc, argv);
+	std::deque<int>		deque = PmergeMe::unsorted<std::deque>(argc, argv);
+	std::list<int>		list = PmergeMe::unsorted<std::list>(argc, argv);
 
-	vector.parseInput(argc, argv);
-	deque.parseInput(argc, argv);
-	list.parseInput(argc, argv);
-	printRandom("Before:", vector, deque, list);
+	printRandom("Before", vector, deque, list);
 }
 
-static void	printRandom(const char *string, \
-					PmergeMe<std::vector<size_t> > &vector, \
-					PmergeMe<std::deque<size_t> > &deque, \
-					PmergeMe<std::list<size_t> > &list)
+template <template <typename...> class CONTAINER>
+CONTAINER<int>	timedSort(int argc, char **argv, const char *type)
 {
-	std::cout	<< std::setw(8)	<< string;
-	switch (std::rand() % 3)
-	{
-		case 0:	std::cout	<< vector	<< " (std::vector)";	break ;
-		case 1: std::cout	<< deque	<< " (std::deque)";	break ;
-		case 2:	std::cout	<< list		<< " (std::list)";	break ;
-		default:	std::cout	<< "Error";	break ;
-	}
-	std::cout	<< std::endl;
-}
-
-template <typename CONTAINER>
-static void	timedSort(CONTAINER &container, int argc, char **argv, const char *type)
-{
-	timespec	currentTime[2];
+	CONTAINER<int>	container;
+	timespec		currentTime[2];
 
 	clock_gettime(CLOCK_REALTIME, &currentTime[0]);
-	container.sort(argc, argv);
+	container = PmergeMe::sort<CONTAINER>(argc, argv);
 	clock_gettime(CLOCK_REALTIME, &currentTime[1]);
-	printTime(container.getContainer().size(), calculateTime(currentTime[0], currentTime[1]), type);
-}
-
-static double	calculateTime(timespec &before, timespec &after)
-{
-	double	diff(0);
-
-	diff += static_cast<double>(after.tv_sec) * 1000000;
-	diff -= static_cast<double>(before.tv_sec) * 1000000;
-	diff += static_cast<double>(after.tv_nsec) / 1000;
-	diff -= static_cast<double>(before.tv_nsec) / 1000;
-	return (diff);
-}
-
-static void	printTime(int size, double time, std::string type)
-{
 	std::cout	<< C_RESET	<< "Time to process a range of " 
-				<< C_ORANGE	<< size
-				<< C_RESET	<<" elements with "
-				<< C_ORANGE	<< std::setw(14)	<< type
-				<< C_RESET	<< ": ";
+			<< C_ORANGE	<< container.size()
+			<< C_RESET	<<" elements with "
+			<< C_ORANGE	<< std::setw(14)	<< type
+			<< C_RESET	<< ": ";
 	std::string	unit(" us");
+	double	time = calculateTime(currentTime[0], currentTime[1]);
 	switch (static_cast<int>(time))
 	{
 		case 0 ... 999:	break ;
@@ -151,4 +78,36 @@ static void	printTime(int size, double time, std::string type)
 	std::cout	<< C_ORANGE	<< time
 				<< C_RESET	<< unit
 				<< std::endl;
+	return (container);
+}
+
+void	printRandom(std::string string, std::vector<int> &vector, std::deque<int> &deque, std::list<int> &list)
+{
+	std::cout	<< std::left	<< std::setw(7)	<< string;
+	switch (std::rand() % 3)
+	{
+		case 0:	std::cout	<< std::setw(14)	<< "<std::vector>";
+				PmergeMe::print(vector);
+				break;
+		case 1:	std::cout	<< std::setw(14)	<< "<std::deque>";
+				PmergeMe::print(deque);
+				break;
+		case 2:	std::cout	<< std::setw(14)	<< "<std::list>";
+				PmergeMe::print(list);
+				break;
+		default:	std::cout	<< "Error";
+					break;
+	}
+	std::cout	<< std::endl;
+}
+
+static double	calculateTime(timespec &before, timespec &after)
+{
+	double	diff(0);
+
+	diff += static_cast<double>(after.tv_sec) * 1000000;
+	diff -= static_cast<double>(before.tv_sec) * 1000000;
+	diff += static_cast<double>(after.tv_nsec) / 1000;
+	diff -= static_cast<double>(before.tv_nsec) / 1000;
+	return (diff);
 }

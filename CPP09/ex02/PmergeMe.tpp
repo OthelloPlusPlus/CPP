@@ -1,254 +1,255 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   PmergeMe.tpp                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/08 19:20:43 by ohengelm          #+#    #+#             */
-/*   Updated: 2023/12/22 19:54:57 by ohengelm         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "PmergeMe.hpp"
-#include "colors.hpp"
-
-#include <iostream>
-// std::cout
-#include <iostream>
-//std::ostream
-#include <cstdlib>
-// std::atoi()
-// std::rand()
 #include <algorithm>
 // std::upper_bound()
-// std::min_element()
+#include <iostream>
+// std::cout
 
+namespace
+{
 /** ************************************************************************ **\
  * 
- * 	Constructors
+ * 	Parsing
  * 
 \* ************************************************************************** */
 
-template <typename CONTAINER>
-PmergeMe<CONTAINER>::PmergeMe(void)
-{
-	// std::cout	<< C_DGREEN	<< "Default constructor "
-	// 			<< C_GREEN	<< "PmergeMe"
-	// 			<< C_DGREEN	<< " called."
-	// 			<< C_RESET	<< std::endl;
-}
-
-template <typename CONTAINER>
-PmergeMe<CONTAINER>::PmergeMe(const PmergeMe &src)
-{
-	*this = src;
-	// std::cout	<< C_DGREEN	<< "Copy constructor "
-	// 			<< C_GREEN	<< "PmergeMe"
-	// 			<< C_DGREEN	<< " called."
-	// 			<< C_RESET	<< std::endl;
-}
-
-/** ************************************************************************ **\
- * 
- * 	Deconstructors
- * 
-\* ************************************************************************** */
-
-template <typename CONTAINER>
-PmergeMe<CONTAINER>::~PmergeMe(void)
-{
-	// std::cout	<< C_RED	<< "Deconstructor "
-	// 			<< C_RED	<< "PmergeMe"
-	// 			<< C_DRED	<< " called"
-	// 			<< C_RESET	<< std::endl;
-}
-
-/** ************************************************************************ **\
- * 
- * 	Member Functions
- * 
-\* ************************************************************************** */
-
-/**
- * parses and sorts passed arguments.
-*/
-template <typename CONTAINER>
-void	PmergeMe<CONTAINER>::sort(int argc, char **argv)
-{
-	int			dangler(-1);
-
-	this->parseInput(argc, argv);
-	if (container.size() <= 1)
-		return ;
-	if (container.size() % 2)
-		dangler = this->extractDangler();
-	this->splitContainer();
-	this->largestOnTop();
-	this->sortHighAscending();
-	this->priorityInsert();
-	if (dangler >= 0)
-		this->container.insert(std::upper_bound(this->container.begin(), this->container.end(), dangler), dangler);
-	this->low.clear();
-}
-
-/**
- * Clears containers, parses arguments and stores them in container.
- * Made public for demonstration purposes.
-*/
-template <typename CONTAINER>
-void	PmergeMe<CONTAINER>::parseInput(int argc, char **argv)
-{
-	this->container.clear();
-	this->low.clear();
-	for (int i = 1; i < argc; ++i)
-		this->container.push_back(this->convertToInt(argv[i]));
-}
-
-template <typename CONTAINER>
-int	PmergeMe<CONTAINER>::convertToInt(const char *arg) const
-{
-	std::string	validate(arg);
-	int	value;
-
-	if (validate.empty())
-		throw (std::invalid_argument("Empty argument passed"));
-	if (validate.find_first_of("1234567890") == std::string::npos ||\
-		validate.find_first_not_of("1234567890-+") != std::string::npos)
-		throw (std::invalid_argument("Invalid number passed: " + validate));
-	value = std::atoi(arg);
-	if (value < 0)
-		throw (std::invalid_argument("Negative number passed: " + validate));
-	return (value);
-}
-
-template <typename CONTAINER>
-int	PmergeMe<CONTAINER>::extractDangler(void)
-{
-	int	dangler = this->container.back();
-	this->container.erase(--this->container.end());
-	return (dangler);
-}
-
-template <typename CONTAINER>
-void	PmergeMe<CONTAINER>::splitContainer(void)
-{
-	for (typename CONTAINER::iterator i = this->container.begin(); i != this->container.end();)
+	int	convertToInt(const char *arg)
 	{
-		++i;
-		if (i == this->container.end())
-			break ;
-		this->low.push_back(*i);
-		i = this->container.erase(i);
+		std::string	validate(arg);
+		int	value;
+
+		if (validate.empty())
+			throw (std::invalid_argument("Empty argument passed"));
+		if (validate.find_first_of("1234567890") == std::string::npos ||\
+			validate.find_first_not_of("1234567890-+") != std::string::npos)
+			throw (std::invalid_argument("Invalid number passed: " + validate));
+		value = std::atoi(arg);
+		if (value < 0)
+			throw (std::invalid_argument("Negative number passed: " + validate));
+		return (value);
 	}
-}
 
-template <typename CONTAINER>
-void	PmergeMe<CONTAINER>::largestOnTop(void)
-{
-	for (typename CONTAINER::iterator i = this->container.begin(), j = this->low.begin(); i != this->container.end(); ++i, ++j)
-		if (*i < *j)
-			std::swap(*i, *j);
-}
-
-// https://www.youtube.com/watch?v=wqibJMG42Ik&t=283s
-// https://github.com/MyNameIsTrez/cpp/blob/master/09/ex02/PmergeMe.py
-
-template <typename CONTAINER>
-void	PmergeMe<CONTAINER>::sortHighAscending(void)
-{
-	typename CONTAINER::iterator posHigh = this->container.begin();
-	typename CONTAINER::iterator posLow = this->low.begin();
-
-	for (; posHigh != this->container.end(); ++posHigh, ++posLow)
+	template <typename CONT>
+	CONT	parseInput(int argc, char **argv)
 	{
-		typename CONTAINER::iterator nextHigh = std::min_element(posHigh, this->container.end());
-		typename CONTAINER::iterator nextLow = posLow;
-		for (typename CONTAINER::iterator i = posHigh; i != nextHigh && i != this->container.end(); ++i)
-			++nextLow;
-		if (nextHigh != this->container.end() && nextLow != this->low.end())
-		{
-			std::swap(*posHigh, *nextHigh);
-			std::swap(*posLow, *nextLow);
-		}
+		CONT	container;
+		for (int i = 1; i < argc; ++i)
+			container.push_back(::convertToInt(argv[i]));
+		return (container);
 	}
-}
 
-template <typename CONTAINER>
-void	PmergeMe<CONTAINER>::priorityInsert(void)
-{
-	typename CONTAINER::const_iterator	upper;
-	typename CONTAINER::const_iterator	lower;
-	size_t	JH[2] = {0, 1};
+/** ************************************************************************ **\
+ * 
+ * 	Copying
+ * 
+\* ************************************************************************** */
 
-	upper = this->low.begin();
-	lower = upper;
-	this->container.insert(this->container.begin(), *upper);
-	for (size_t i = 1; i < this->low.size();)
+	template <typename PAIR, typename CONT>
+	PAIR	copyIntoPaired(CONT container)
 	{
-		for (typename CONTAINER::const_iterator pos = upper; pos != lower; --pos)
+		PAIR	paired;
+		for (typename CONT::iterator i = container.begin(); i != container.end(); ++i)
+			paired.push_back(CONT{*i});
+		return (paired);
+	}
+
+/** ************************************************************************ **\
+ * 
+ * 	Pairing
+ * 
+\* ************************************************************************** */
+
+	template <typename CONT>
+	void	setIterators(CONT &container, typename CONT::iterator &pos, typename CONT::iterator &next, size_t adv)
+	{
+		pos = container.begin();
+		std::advance(pos, adv);
+		next = pos;
+		++next;
+	}
+
+	template <typename CONT, typename PAIR>
+	bool	pairUpAndSortUpper(CONT &container, PAIR &paired)
+	{
+		typename CONT::iterator	iCont;
+		typename CONT::iterator iContNext;
+		typename PAIR::iterator	iPair;
+		typename PAIR::iterator iPairNext;
+		size_t	size = paired.begin()->size();
+
+		for (size_t i = 0; i <= container.size(); ++i)
 		{
-			this->container.insert(std::upper_bound(this->container.begin(), this->container.end(), *pos), *pos);
-			++i;
-		}
-		if (i >= this->low.size())
-			break ;
-		lower = upper;
-		for (size_t j = JH[1] - JH[0]; j > 0; --j)
-			if (upper != this->low.end())
-				++upper;
-			else
+			::setIterators(container, iCont, iContNext, i);
+			::setIterators(paired, iPair, iPairNext, i);
+			if (iContNext == container.end() ||\
+				iPairNext == paired.end() ||\
+				iPairNext->size() != size)
 				break ;
-		if (upper == this->low.end())
-			--upper;
+			if (*iCont < *iContNext)
+			{
+				std::swap(*iCont, *iContNext);
+				std::swap(*iPair, *iPairNext);
+			}
+			iPair->insert(iPair->end(), iPairNext->begin(), iPairNext->end());
+			container.erase(iContNext);
+			iPairNext->clear();
+			paired.erase(iPairNext);
+		}
+		if (iCont != container.end())
+			container.erase(iCont);
+		return (paired.begin()->size() != size);
+	}
+
+/** ************************************************************************ **\
+ * 
+ * 	Insertion
+ * 
+\* ************************************************************************** */
+
+	template <typename CONT, typename PAIR>
+	bool	setJacobHalIterator(size_t size, int JH[2],\
+								CONT &container, PAIR &paired,\
+								typename CONT::iterator &iCont, typename PAIR::iterator	&iPair)
+	{
+		iCont = container.begin();
+		iPair = paired.begin();
+		int	count = 0;
+		for (int steps = JH[1] - JH[0]; iCont != container.end(); ++iCont, ++iPair)
+		{
+			if (iPair->size() < size)
+				continue;
+			++count;
+			--steps;
+			if (steps <= 0)
+				break ;
+		}
 		JH[0] = JH[0] * 2 + JH[1];
 		std::swap(JH[0], JH[1]);
+		return (count > 0);
 	}
-}
 
-template <typename CONTAINER>
-void	PmergeMe<CONTAINER>::printContents(void)
-{
-	std::cout	<< "High: ";
-	for (typename CONTAINER::const_iterator i = this->container.begin(); i != this->container.end(); ++i)
-		std::cout	<< *i	<< ' ';
-	std::cout	<< '\n'
-				<< "low:  ";
-	for (typename CONTAINER::const_iterator i = this->low.begin(); i != this->low.end(); ++i)
-		std::cout	<< *i	<< ' ';
-	std::cout	<< std::endl;
-}
-
-// /** ************************************************************************ **\
-//  * 
-//  * 	Operators
-//  * 
-// \* ************************************************************************** */
-
-template <typename CONTAINER>
-PmergeMe<CONTAINER>	&PmergeMe<CONTAINER>::operator=(const PmergeMe<CONTAINER> &src)
-{
-	if (this == &src)
-		return (*this);
-	this->container = src.container;
-	this->low = src.low;
-	return (*this);
-}
-
-template <typename CONTAINER>
-std::ostream	&operator<<(std::ostream &out, PmergeMe<CONTAINER> &src)
-{
-	const CONTAINER	&container = src.getContainer();
-
-	typename CONTAINER::const_iterator i = container.begin();
-	for (size_t count = 0; i != container.end(); ++i, ++count)
+	template <typename CONTIT, typename CONT>
+	CONT	splitContainer(CONTIT &insert, CONT &paired)
 	{
-		if (count >= 7)
+		CONT	newPair;
+
+		while (insert != paired.end())
 		{
-			out	<< "[...]";
-			break ;
+			newPair.push_back(*insert);
+			insert = paired.erase(insert);
 		}
-		out	<< *i	<< ' ';
+		return (newPair);
 	}
-	return (out);
+
+	template <typename CONT, typename PAIR>
+	void	binaryInsertion(CONT &container, PAIR &paired)
+	{
+		typename CONT::iterator	iCont;
+		typename PAIR::iterator	iPair;
+		int		JH[2] = {0, 1};
+		size_t	size = paired.begin()->size();
+
+		while (::setJacobHalIterator(size, JH, container, paired, iCont, iPair))
+		{
+			for (; iCont != --container.begin(); --iCont, --iPair)
+			{
+				if (iPair->size() != size)
+				{
+					if (iCont != container.begin())
+						break ;
+					else
+						continue ;
+				}
+				auto	insert = iPair->begin();
+				std::advance(insert, size / 2);
+				auto	insertContainer = std::upper_bound(container.begin(), iCont, *insert);
+				auto	insertPair = paired.begin();
+				for (auto i = container.begin(); i != insertContainer && i != container.end(); ++i)
+					++insertPair;
+				container.insert(insertContainer, *insert);
+				paired.insert(insertPair, ::splitContainer(insert, *iPair));
+			}
+		}
+	}
+
+/** ************************************************************************ **\
+ * 
+ * 	Trailing
+ * 
+\* ************************************************************************** */
+
+	template <typename CONT, typename PAIR>
+	void	addTrailer(CONT &container, PAIR &paired)
+	{
+		if (paired.size() <= container.size())
+			return ;
+		typename PAIR::iterator	iPair = paired.begin();
+		std::advance(iPair, container.size());
+		while (iPair != paired.end())
+		{
+			while (!iPair->empty())
+			{
+				typename CONT::iterator	pos = std::upper_bound(container.begin(), container.end(), *iPair->begin());
+				container.insert(pos, *iPair->begin());
+				iPair->erase(iPair->begin());
+			}
+			iPair = paired.erase(iPair);
+		}
+	}
+}
+
+/** ************************************************************************ **\
+ * 
+ * 	PmergeMe
+ * 
+\* ************************************************************************** */
+
+/**
+ * 
+*/
+template <template <typename...> class CONTAINER>
+CONTAINER<int>	PmergeMe::sort(int argc, char **argv)
+{
+	CONTAINER<int>	container;
+
+	container = ::parseInput<CONTAINER<int>>(argc, argv);
+	return (PmergeMe::sort(container));
+}
+
+template <template <typename...> class CONTAINER>
+CONTAINER<int>	PmergeMe::sort(CONTAINER<int> container)
+{
+	CONTAINER<CONTAINER<int>>	paired;
+
+	if (container.size() <= 1)
+		return (container);
+	paired = ::copyIntoPaired<CONTAINER<CONTAINER<int>>>(container);
+	while (container.size() > 1)
+		if (!::pairUpAndSortUpper(container, paired))
+			break ;
+	while (paired.size() && paired.begin()->size() > 1)
+		::binaryInsertion(container, paired);
+	::addTrailer(container, paired);
+	return (container);
+}
+
+template <template <typename...> class CONTAINER>
+CONTAINER<int>	PmergeMe::unsorted(int argc, char **argv)
+{
+	return (::parseInput<CONTAINER<int>>(argc, argv));
+}
+
+template <typename CONTAINER>
+void	PmergeMe::print(CONTAINER &container)
+{
+	typename CONTAINER::const_iterator i = container.begin();
+	if (i != container.end())
+		std::cout	<< *i;
+	else
+		return ;
+	++i;
+	size_t	max = 8;
+	for (size_t count = max - 1; i != container.end() && count > 0; ++i, --count)
+		if (count > 1 || (count == 1 && container.size() == max))
+			std::cout	<< ' '	<< *i;
+		else
+			std::cout	<< " [...]";
 }

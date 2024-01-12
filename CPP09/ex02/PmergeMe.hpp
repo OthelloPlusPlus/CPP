@@ -1,54 +1,28 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   PmergeMe.hpp                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ohengelm <ohengelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/08 19:20:43 by ohengelm      #+#    #+#                 */
-/*   Updated: 2023/12/08 19:20:43 by ohengelm      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef PMERGEME_HPP
 # define PMERGEME_HPP
 
-#include <iostream>
-//std::ostream
+# include <vector>
+//std::vector
+# include <list>
+//std::list
+# include <deque>
+//std::deque
 
-template <typename CONTAINER>
-class PmergeMe
+namespace PmergeMe
 {
-	private:
-		CONTAINER	container;
-		CONTAINER	low;
+	template <template <typename...> class CONTAINER>
+	CONTAINER<int>	sort(int argc, char **argv);
 
-		int		convertToInt(const char *arg) const;
-		int		extractDangler(void);
-		void	splitContainer(void);
-		void	largestOnTop(void);
-		void	sortHighAscending(void);
-		void	priorityInsert(void);
+	template <template <typename...> class CONTAINER>
+	CONTAINER<int>	sort(CONTAINER<int> container);
 
-		void	printContents(void);
+	template <template <typename...> class CONTAINER>
+	CONTAINER<int>	unsorted(int argc, char **argv);
 
-	protected:
-
-	public:
-		PmergeMe(void);
-		PmergeMe(const PmergeMe &src);
-		~PmergeMe(void);
-
-		void	sort(int argc, char **argv);
-		void	parseInput(int argc, char **argv);
-
-		const CONTAINER &getContainer(void) const {return (this->container);}
-
-		PmergeMe	&operator=(const PmergeMe &src);
-};
-
-template <typename CONTAINER>
-std::ostream	&operator<<(std::ostream &out, PmergeMe<CONTAINER> &src);
+	template <typename CONTAINER>
+	void	print(CONTAINER &container);
+}
 
 #include "PmergeMe.tpp"
 
