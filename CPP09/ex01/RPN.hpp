@@ -18,6 +18,18 @@
 
 namespace RPN
 {
+	/**
+	 * @name	RPN
+	 * @file	RPN.cpp
+	 * @author	Othello
+	 * 
+	 * @brief
+	 * Passes through the passed values and calculates them using them Postfix/Reverse Polish.
+	 * 
+	 * @param input String containing the equasion to be solved.
+	 * @note ' ' is used as deliminator in the string.
+	 * @return	The calculated value.
+	*/
 	double	calculate(std::string input);
 } // namespace RPN
 
