@@ -1,7 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PmergeMe.tpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/17 18:19:25 by ohengelm          #+#    #+#             */
+/*   Updated: 2024/01/17 18:19:27 by ohengelm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <algorithm>
 // std::upper_bound()
 #include <iostream>
 // std::cout
+
+#include "size_c.hpp"
 
 namespace
 {
@@ -11,20 +25,21 @@ namespace
  * 
 \* ************************************************************************** */
 
-	int	convertToInt(const char *arg)
+	size_c	convertToSizeC(const char *arg)
 	{
 		std::string	validate(arg);
-		int	value;
+		int			value;
 
 		if (validate.empty())
 			throw (std::invalid_argument("Empty argument passed"));
 		if (validate.find_first_of("1234567890") == std::string::npos ||\
 			validate.find_first_not_of("1234567890-+") != std::string::npos)
 			throw (std::invalid_argument("Invalid number passed: " + validate));
+		
 		value = std::atoi(arg);
 		if (value < 0)
 			throw (std::invalid_argument("Negative number passed: " + validate));
-		return (value);
+		return (size_c(value));
 	}
 
 	template <typename CONT>
@@ -32,7 +47,7 @@ namespace
 	{
 		CONT	container;
 		for (int i = 1; i < argc; ++i)
-			container.push_back(::convertToInt(argv[i]));
+			container.push_back(::convertToSizeC(argv[i]));
 		return (container);
 	}
 
@@ -158,11 +173,11 @@ namespace
 					else
 						continue ;
 				}
-				auto	insert = iPair->begin();
+				typename CONT::iterator	insert = iPair->begin();
 				std::advance(insert, size / 2);
-				auto	insertContainer = std::upper_bound(container.begin(), iCont, *insert);
-				auto	insertPair = paired.begin();
-				for (auto i = container.begin(); i != insertContainer && i != container.end(); ++i)
+				typename CONT::iterator	insertContainer = std::upper_bound(container.begin(), iCont, *insert);
+				typename PAIR::iterator	insertPair = paired.begin();
+				for (typename CONT::iterator i = container.begin(); i != insertContainer && i != container.end(); ++i)
 					++insertPair;
 				container.insert(insertContainer, *insert);
 				paired.insert(insertPair, ::splitContainer(insert, *iPair));
@@ -202,26 +217,23 @@ namespace
  * 
 \* ************************************************************************** */
 
-/**
- * 
-*/
 template <template <typename...> class CONTAINER>
-CONTAINER<int>	PmergeMe::sort(int argc, char **argv)
+CONTAINER<size_c>	PmergeMe::sort(int argc, char **argv)
 {
-	CONTAINER<int>	container;
+	CONTAINER<size_c>	container;
 
-	container = ::parseInput<CONTAINER<int>>(argc, argv);
+	container = ::parseInput<CONTAINER<size_c> >(argc, argv);
 	return (PmergeMe::sort(container));
 }
 
 template <template <typename...> class CONTAINER>
-CONTAINER<int>	PmergeMe::sort(CONTAINER<int> container)
+CONTAINER<size_c>	PmergeMe::sort(CONTAINER<size_c> container)
 {
-	CONTAINER<CONTAINER<int>>	paired;
+	CONTAINER<CONTAINER<size_c> >	paired;
 
 	if (container.size() <= 1)
 		return (container);
-	paired = ::copyIntoPaired<CONTAINER<CONTAINER<int>>>(container);
+	paired = ::copyIntoPaired<CONTAINER<CONTAINER<size_c> > >(container);
 	while (container.size() > 1)
 		if (!::pairUpAndSortUpper(container, paired))
 			break ;
@@ -232,9 +244,9 @@ CONTAINER<int>	PmergeMe::sort(CONTAINER<int> container)
 }
 
 template <template <typename...> class CONTAINER>
-CONTAINER<int>	PmergeMe::unsorted(int argc, char **argv)
+CONTAINER<size_c>	PmergeMe::unsorted(int argc, char **argv)
 {
-	return (::parseInput<CONTAINER<int>>(argc, argv));
+	return (::parseInput<CONTAINER<size_c> >(argc, argv));
 }
 
 template <typename CONTAINER>
