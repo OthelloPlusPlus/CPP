@@ -180,88 +180,139 @@ This exercise requires you to sort a string of numbers using the the [Ford–Joh
 <table>
 	<thead style="background-color: #C0C0C0;">
 		<tr>
-			<th rowspan="2">#</th>
-			<th rowspan="2">Operation</th>
-			<th colspan="3">Example</th>
-		</tr>
-		<tr>
-			<th>Sequence(s)</th>
-			<th>Ordening</th>
-			<th>Remnant</th>
+			<th colspan="2">Operation</th>
+			<th colspan="11">Example</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
-			<td><a href="ex02/PmergeMe.tpp#L77" target="_blank">0</a></td>
-			<td>Starting Array</td>
-			<td>[1 3 5 7 9 2 4 6 8 0 10]</td>
+			<td colspan="2">Starting Array</td>
+			<td>1</td>
+			<td>3</td>
+			<td>5</td>
+			<td>7</td>
+			<td>9</td>
+			<td>2</td>
+			<td>4</td>
+			<td>6</td>
+			<td>8</td>
+			<td>0</td>
+			<td>10</td>
+		</tr>
+		<tr>
+			<td rowspan="6">
+				Merge<br><br>
+				1. Group the elements into pairs.<br>
+				2. Determine the larger of the to elements and put it on top.<br>
+				3. Repeat recursively until no more pairs can be made.<br>
+			</td>
+			<td>Pair</td>
+			<td colspan="2">1 3</td>
+			<td colspan="2">5 7</td>
+			<td colspan="2">9 2</td>
+			<td colspan="2">4 6</td>
+			<td colspan="2">8 0</td>
+			<td>10</td>
+		</tr>
+		<tr>
+			<td>Largest on Top</td>
+			<td colspan="2">3<br>1</td>
+			<td colspan="2">7<br>5</td>
+			<td colspan="2">9<br>2</td>
+			<td colspan="2">6<br>4</td>
+			<td colspan="2">8<br>0</td>
+			<td><br>10</td>
+		</tr>
+		<tr>
+			<td>Pair</td>
+			<td colspan="4">3 7<br>1 5</td>
+			<td colspan="4">9 6<br>2 4</td>
+			<td colspan="2">8<br>0</td>
+			<td><br>10</td>
+		</tr>
+		<tr>
+			<td>Largest on Top</td>
+			<td colspan="4">7<br>5<br>3<br>1</td>
+			<td colspan="4">9<br>2<br>6<br>4</td>
+			<td colspan="2"><br><br>8<br>0</td>
+			<td><br><br><br>10</td>
+		</tr>
+		<tr>
+			<td>Pair</td>
+			<td colspan="8">7 9<br>5 2<br>3 6<br>1 4</td>
+			<td colspan="2"><br><br>8<br>0</td>
+			<td><br><br><br>10</td>
+		</tr>
+		<tr>
+			<td>Largest on Top</td>
+			<td colspan="8">9<br>2<br>6<br>4<br>7<br>5<br>3<br>1</td>
+			<td colspan="2"><br><br><br><br><br><br>8<br>0</td>
+			<td><br><br><br><br><br><br><br>10</td>
+		</tr>
+		<tr>
+			<td rowspan="7">
+				Insert<br><br>
+				4. Insert the bottom element to the start of the sequence.<br>
+				5a. Determine the most efficient <a href=".#jacobsthal-sequence">order</a> for bottom elements to be inserted.<br>
+				(this order reduces the amout of comparisons for the next step)<br>
+				5b. Using Binary search, find the position for each element to be inserted and insert it.<br>
+			</td>
+			<td>Sequence</td>
+			<td colspan="8">9<br>2<br>6<br>4<br>7<br>5<br>3<br>1</td>
+			<td colspan="2"><br><br><br><br><br><br>8<br>0</td>
+			<td><br><br><br><br><br><br><br>10</td>
+		</tr>
+		<tr>
+			<td>Insert order</td>
+			<td colspan="8">0</td>
+			<td colspan="2"></td>
 			<td></td>
+		</tr>
+		<tr>
+			<td>Sequence</td>
+			<td colspan="4">7<br>5<br>3<br>1</td>
+			<td colspan="4">9<br>2<br>6<br>4</td>
+			<td colspan="2"><br><br>8<br>0</td>
+			<td><br><br><br>10</td>
+		</tr>
+		<tr>
+			<td>Insert order</td>
+			<td colspan="4">0</td>
+			<td colspan="4">1</td>
+			<td colspan="2">2</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td><a href="ex02/PmergeMe.tpp#L126" target="_blank">1.a</a></td>
-			<td>For an odd array, keep the remnant for later</td>
-			<td>[1 3 5 7 9 2 4 6 8 0]</td>
-			<td></td>
-			<td>[10]</td>
+			<td>Sequence</td>
+			<td colspan="2">3<br>1</td>
+			<td colspan="2">6<br>4</td>
+			<td colspan="2">7<br>5</td>
+			<td colspan="2">8<br>0</td>
+			<td colspan="2">9<br>2</td>
+			<td><br>10</td>
 		</tr>
 		<tr>
-			<td><a href="ex02/PmergeMe.tpp#L134" target="_blank">1.b</a></td>
-			<td>Split the array into pairs</td>
-			<td>[1 5 9 4 8]<br>[3 7 2 6 0]</td>
-			<td></td>
-			<td>[10]</td>
+			<td>Insert order</td>
+			<td colspan="2">0</td>
+			<td colspan="2">1</td>
+			<td colspan="2">3</td>
+			<td colspan="2">2</td>
+			<td colspan="2">5</td>
+			<td>4</td>
 		</tr>
 		<tr>
-			<td><a href="ex02/PmergeMe.tpp#L147" target="_blank">2</a></td>
-			<td>Put the larger component on top for each pair</td>
-			<td>[3 7 9 6 8]<br>[1 5 2 4 0]</td>
-			<td></td>
-			<td>[10]</td>
-		</tr>
-		<tr>
-			<td><a href="ex02/PmergeMe.tpp#L155" target="_blank">3</a></td>
-			<td>Sort the pairs ascending, based on the top value</td>
-			<td>[3 6 7 8 9]<br>[1 4 5 0 2]</td>
-			<td></td>
-			<td>[10]</td>
-		</tr>
-		<tr>
-			<td><a href="ex02/PmergeMe.tpp#L175" target="_blank">4</a></td>
-			<td>Define the <a href=".#jacobsthal-sequence">order of insertion</a> for the least comparisons</td>
-			<td>[3 6 7 8 9]<br>[1 4 5 0 2]</td>
-			<td><br>[0 1 3 2 4]</td>
-			<td>[10]</td>
-		</tr>
-		<tr>
-			<td rowspan="5"><a href="ex02/PmergeMe.tpp#L" target="_blank">5</a></td>
-			<td rowspan="5">Insert bottom sequence into top sequence<br> - Using ordering for next to number to merge<br> - Using Binary Search to position to insert</td>
-			<td>[1 3 6 7 8 9]<br>[- 4 5 0 2]</td>
-			<td><br>[- 1 3 2 4]</td>
-			<td rowspan="5">[10]</td>
-		</tr>
-		<tr>
-			<td>[1 3 4 6 7 8 9]<br>[- - 5 0 2]</td>
-			<td><br>[- - 3 2 4]</td>
-		</tr>
-		<tr>
-			<td>[0 1 3 4 6 7 8 9]<br>[- - 5 - 2]</td>
-			<td><br>[- - 3 - 4]</td>
-		</tr>
-		<tr>
-			<td>[0 1 3 4 5 6 7 8 9]<br>[- - - - 2]</td>
-			<td><br>[- - - - 4]</td>
-		</tr>
-		<tr>
-			<td>[0 1 2 3 4 5 6 7 8 9]</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><a href="ex02/PmergeMe.tpp#L91" target="_blank">6</a></td>
-			<td>Add the remnant</td>
-			<td>[0 1 2 3 4 5 6 7 8 9 10]</td>
-			<td></td>
-			<td></td>
+			<td>Sequence</td>
+			<td>0</td>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+			<td>6</td>
+			<td>7</td>
+			<td>8</td>
+			<td>9</td>
+			<td>10</td>
 		</tr>
 	</tbody>
 </table>
