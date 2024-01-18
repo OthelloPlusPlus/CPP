@@ -6,7 +6,7 @@
 /*   By: ohengelm <ohengelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 18:19:25 by ohengelm          #+#    #+#             */
-/*   Updated: 2024/01/17 18:19:27 by ohengelm         ###   ########.fr       */
+/*   Updated: 2024/01/18 14:46:15 by ohengelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ namespace
 		}
 		if (iCont != container.end())
 			container.erase(iCont);
+		// PmergeMe::print(container);
+		// std::cout	<< std::endl;
 		return (paired.begin()->size() != size);
 	}
 
